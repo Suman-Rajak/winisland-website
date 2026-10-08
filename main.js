@@ -91,6 +91,7 @@
     { id: 'privacy', label: 'Privacy', sub: 'Private by design', icon: 'shield' },
     { id: 'pricing', label: 'Pricing', sub: 'Free and Pro', icon: 'tag' },
     { id: 'faq', label: 'FAQ', sub: 'Good questions', icon: 'question' },
+    { id: 'founder', label: 'Founder’s note', menu: false },
     { id: 'waitlist', label: 'Waitlist', sub: 'Get early access', icon: 'bell', cta: true },
   ];
   let currentSection = SECTIONS[0];
@@ -119,7 +120,7 @@
   }
 
   function navMenu() {
-    const links = SECTIONS.slice(1).map(s =>
+    const links = SECTIONS.slice(1).filter(s => s.menu !== false).map(s =>
       `<a href="#${s.id}" class="${s.cta ? 'cta' : ''}${s.id === currentSection.id ? ' here' : ''}">` +
       `<span class="m-ic">${ICON[s.icon]}</span><span><b>${s.label}</b><small>${s.sub}</small></span></a>`
     ).join('');
@@ -184,6 +185,10 @@
   }));
 
   const hint = $('.hover-hint');
+  const noHover = matchMedia('(hover: none)');
+  const labelHint = () => { hint.lastChild.textContent = noHover.matches ? 'Tap the island' : 'Hover the island'; };
+  labelHint();
+  noHover.addEventListener('change', labelHint);
   hero.onHover = on => { if (on) hint.classList.add('gone'); };
   hero.autoplay(['notification', 'volume', 'bluetooth', 'siro', 'battery', 'privacy', 'brightness'].map(tagged), { gap: 2600, start: 2400 });
 
