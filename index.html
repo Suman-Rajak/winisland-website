@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WinIsland: your desktop just got a halo</title>
+  <meta name="description" content="WinIsland is a living island of glass at the top of Windows. Music, volume, battery, earbuds, notifications, clipboard history, a file shelf and Siro, a private voice assistant, appear the moment they matter.">
+  <meta name="theme-color" content="#e9e2ff">
+  <meta property="og:title" content="WinIsland: your desktop just got a halo">
+  <meta property="og:description" content="A living island of glass at the top of Windows. Coming soon for Windows 10 and 11.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script defer src="island.js"></script>
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas id="motes" aria-hidden="true"></canvas>
+
+  <!-- The menu is an island too: it shows where you are, and opens into the sections on hover. -->
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="WinIsland home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">WinIsland</span>
+    </a>
+    <nav class="nav-island" aria-label="Sections">
+      <div id="nav-island" style="--h:250"></div>
+    </nav>
+    <a class="btn btn-dark btn-sm" href="#waitlist"><span class="long">Join the waitlist</span><span class="short">Join</span></a>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" id="top" data-section="WinIsland">
+      <div class="hero-sky" aria-hidden="true">
+        <div class="rays"></div>
+        <div class="halo"></div>
+        <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
+      </div>
+
+      <div class="hero-inner">
+        <p class="eyebrow reveal"><span class="pulse-dot"></span>Coming soon for Windows 10 &amp; 11</p>
+        <h1 class="hero-title">
+          <span class="line"><span>Your desktop</span></span>
+          <span class="line"><span>just got a <em class="halo-word">halo.</em></span></span>
+        </h1>
+        <p class="hero-sub reveal" style="--d:.35s">WinIsland is a living island of glass at the top of your screen. Music, volume, battery, earbuds, messages, your clipboard and a voice assistant appear the moment they matter, then melt away.</p>
+        <form class="waitlist reveal" style="--d:.5s" data-waitlist novalidate>
+          <label class="sr-only" for="email-hero">Email address</label>
+          <input id="email-hero" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+          <button class="btn btn-glow" type="submit"><span>Join the waitlist</span></button>
+          <p class="form-msg" role="status" aria-live="polite"></p>
+        </form>
+        <p class="micro reveal" style="--d:.6s">Free to download at launch. No spam, just one email when it's ready.</p>
+      </div>
+
+      <div class="screen-wrap reveal" style="--d:.7s">
+        <div class="screen" id="hero-screen">
+          <div class="display">
+            <div class="wallpaper" aria-hidden="true">
+              <div class="wp-sun"></div>
+              <div class="wp-cloud a"></div><div class="wp-cloud b"></div><div class="wp-cloud c"></div><div class="wp-cloud d"></div>
+            </div>
+            <div class="desk-window" aria-hidden="true">
+              <div class="dw-bar"><i></i><i></i><i></i></div>
+              <div class="dw-body"><b></b><span></span><span></span><span class="short"></span><span></span><span class="short"></span></div>
+            </div>
+            <div class="island-slot"><div id="hero-island" class="halo-glow" style="--h:250" data-max="1.45"></div></div>
+            <p class="hover-hint" aria-hidden="true"><span class="hh-cursor"></span>Hover the island</p>
+            <div class="taskbar" aria-hidden="true">
+              <div class="tb-apps"><i class="tb-start"></i><i class="tb-search"></i><i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i></div>
+              <div class="tb-clock"><b data-clock-time></b><span data-clock-date></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="try reveal" role="group" aria-label="Try an activity on the island">
+        <span class="try-label">Try it</span>
+        <button class="chip" data-demo="music"><span class="chip-ic" data-icon="note"></span>Music</button>
+        <button class="chip" data-demo="notification"><span class="chip-ic" data-icon="bell"></span>Message</button>
+        <button class="chip" data-demo="volume"><span class="chip-ic" data-icon="volume"></span>Volume</button>
+        <button class="chip" data-demo="bluetooth"><span class="chip-ic" data-icon="headphones"></span>Earbuds</button>
+        <button class="chip" data-demo="battery"><span class="chip-ic" data-icon="bolt"></span>Charging</button>
+        <button class="chip" data-demo="privacy"><span class="chip-ic" data-icon="mic"></span>Mic in use</button>
+        <button class="chip chip-siro" data-demo="siro"><span class="chip-ic" data-icon="sparkle"></span>Siro</button>
+      </div>
+    </section>
+
+    <!-- ============================== HOW IT LIVES ============================== -->
+    <section class="story" id="how" data-section="How it works">
+      <div class="section-head reveal">
+        <p class="kicker">How it lives</p>
+        <h2>Right where your eyes <em>already are.</em></h2>
+      </div>
+      <div class="story-grid">
+        <div class="story-stick">
+          <div class="screen small" id="story-screen" data-step="0">
+            <div class="display">
+              <div class="wallpaper alt" aria-hidden="true">
+                <div class="wp-sun"></div>
+                <div class="wp-cloud a"></div><div class="wp-cloud c"></div>
+              </div>
+              <div class="movie" aria-hidden="true"><div class="movie-scene"></div><div class="movie-bar"><i></i></div></div>
+              <div class="island-slot"><div id="story-island" style="--h:220" data-max="1.1"></div></div>
+              <span class="fake-cursor" aria-hidden="true"></span>
+              <div class="taskbar" aria-hidden="true">
+                <div class="tb-apps"><i class="tb-start"></i><i class="tb-search"></i><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="story-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+        </div>
+        <ol class="story-steps">
+          <li data-step="0">
+            <span class="step-n">01</span>
+            <h3>Quiet when nothing's happening.</h3>
+            <p>A small dark pill at the top of the screen. Or nothing at all: turn on “Hide when idle” and it fades away until you point at the top of the screen.</p>
+          </li>
+          <li data-step="1">
+            <span class="step-n">02</span>
+            <h3>Alive the moment something is.</h3>
+            <p>A song starts, your earbuds connect, the charger goes in. The island springs into a live activity, tells you what you need, then settles back.</p>
+          </li>
+          <li data-step="2">
+            <span class="step-n">03</span>
+            <h3>Hover, and it opens.</h3>
+            <p>Point at the island for artwork, progress and controls, with tabs for your clipboard and file shelf. Clicking it never steals focus from what you're doing.</p>
+          </li>
+          <li data-step="3">
+            <span class="step-n">04</span>
+            <h3>Gone when you go fullscreen.</h3>
+            <p>Games and films get the whole screen. The island steps aside and comes back when you do. Everywhere else, clicks pass straight through around it.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== FEATURES ============================== -->
+    <section class="features" id="features" data-section="Features">
+      <div class="section-head center reveal">
+        <p class="kicker">Live activities</p>
+        <h2>Everything happening. <em>One glance.</em></h2>
+        <p class="lede">Every one of these is something the app really shows. Go on, poke them.</p>
+      </div>
+
+      <div class="bento">
+        <article class="card span-7 reveal">
+          <div class="card-screen tall"><div data-card="music" style="--h:180" data-max="1"></div></div>
+          <div class="card-copy">
+            <h3>Now playing, from anywhere</h3>
+            <p>Spotify, YouTube in Chrome or Edge, Amazon Music, Media Player and any app that shares what it's playing. Artwork, progress and controls, right at the top.</p>
+          </div>
+        </article>
+
+        <article class="card span-5 reveal" style="--d:.08s">
+          <div class="card-screen tall sky-2"><div data-card="notification" style="--h:200" data-max="1"></div></div>
+          <div class="card-copy">
+            <h3>Notifications that don't shout</h3>
+            <p>A two-line banner for a few seconds. Hover it to read the whole message, with Open and Clear. Quiet while Do Not Disturb is on.</p>
+          </div>
+        </article>
+
+        <article class="card span-4 reveal">
+          <div class="card-screen sky-3"><div data-card="level" style="--h:60" data-max="1" data-fit="320"></div></div>
+          <div class="card-copy">
+            <h3>Volume &amp; brightness</h3>
+            <p>Changes glide in as a level bar, painted in your music's colours.</p>
+          </div>
+        </article>
+
+        <article class="card span-4 reveal" style="--d:.08s">
+          <div class="card-screen sky-4"><div data-card="battery" style="--h:60" data-max="1" data-fit="320"></div></div>
+          <div class="card-copy">
+            <h3>Charging, full, and low</h3>
+            <p>Plug in, hit 100%, or drop to 20% and 10%. Each one said once, never nagging.</p>
+          </div>
+        </article>
+
+        <article class="card span-4 reveal" style="--d:.16s">
+          <div class="card-screen sky-5"><div data-card="bluetooth" style="--h:60" data-max="1" data-fit="320"></div></div>
+          <div class="card-copy">
+            <h3>Your earbuds, and their battery</h3>
+            <p>Headphones, speakers and phones connecting, with their charge. Short drops are ignored.</p>
+          </div>
+        </article>
+
+        <article class="card span-6 reveal">
+          <div class="card-screen tall sky-6"><div data-card="clipboard" style="--h:236" data-max="1"></div></div>
+          <div class="card-copy">
+            <h3>Clipboard history</h3>
+            <p>Your last 20 copies: text, links, images and files. Click one to copy it again. Kept in memory only, and anything a password manager marks private is skipped.</p>
+          </div>
+        </article>
+
+        <article class="card span-6 reveal" style="--d:.08s">
+          <div class="card-screen tall sky-7 shelf-demo">
+            <div data-card="shelf" style="--h:226" data-max="1"></div>
+            <div class="drag-files" aria-label="Files you can drag onto the island">
+              <button class="drag-file" data-kind="file" data-name="Proposal.pdf"><span data-icon="file"></span>Proposal.pdf</button>
+              <button class="drag-file" data-kind="image" data-name="Sunrise.png"><span data-icon="image"></span>Sunrise.png</button>
+              <button class="drag-file" data-kind="folder" data-name="Photos"><span data-icon="folder"></span>Photos</button>
+            </div>
+            <p class="drag-hint">Drag a file onto the island <span aria-hidden="true">↑</span></p>
+          </div>
+          <div class="card-copy">
+            <h3>A shelf for files</h3>
+            <p>Drop files on the island to park them. Drag them out later into any folder, email or chat. Always a copy; the originals never move.</p>
+          </div>
+        </article>
+
+        <article class="card span-6 reveal">
+          <div class="card-screen sky-8"><div data-card="privacy" style="--h:60" data-max="1" data-fit="320"></div></div>
+          <div class="card-copy">
+            <h3>Know who's listening</h3>
+            <p>An orange dot for the microphone, green for the camera, and the name of the app using them. Read from the same place as Windows' own privacy indicator.</p>
+          </div>
+        </article>
+
+        <article class="card span-6 reveal" style="--d:.08s">
+          <div class="card-screen sky-9 fs-demo" data-full="0">
+            <div class="fs-movie" aria-hidden="true"><div class="movie-scene"></div></div>
+            <div data-card="fullscreen" style="--h:60" data-max="1" data-fit="320"></div>
+            <span class="fs-label" aria-hidden="true"></span>
+          </div>
+          <div class="card-copy">
+            <h3>Never in the way</h3>
+            <p>Hides for fullscreen games and films, lets clicks pass through around it, and never steals focus. It's there when you look, and only then.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================== MUSIC ============================== -->
+    <section class="music" id="music" data-section="Music">
+      <div class="music-glow" aria-hidden="true"></div>
+      <div class="music-grid">
+        <div class="music-copy reveal">
+          <p class="kicker">Colour that listens</p>
+          <h2>It wears <em>your music.</em></h2>
+          <p class="lede">The glass, the level bars and the progress bar take their colours from the artwork. No artwork? WinIsland looks it up, or paints a colour from the song itself.</p>
+          <div class="albums" role="radiogroup" aria-label="Pick a song"></div>
+          <label class="switch">
+            <input type="checkbox" id="match-colors" checked>
+            <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+            <span>Match the music's colours</span>
+          </label>
+        </div>
+        <div class="music-stage reveal" style="--d:.15s">
+          <div id="music-island" class="halo-glow" style="--h:184" data-max="1.5"></div>
+          <p class="music-caption">Now playing · <span data-now-playing></span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== NIGHT: SIRO + PRIVACY ============================== -->
+    <div class="night">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+      <section class="siro" id="siro" data-section="Siro">
+        <div class="section-head center reveal">
+          <p class="kicker">Voice assistant</p>
+          <h2>Meet <em class="siro-word">Siro.</em></h2>
+          <p class="lede">Press <span class="keys" role="button" tabindex="0" aria-label="Press Ctrl Alt S to try Siro"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>S</kbd></span> or just say “Hey Siro”. It listens, understands, and does it, all on your PC.</p>
+        </div>
+
+        <div class="siro-stage reveal" style="--d:.1s">
+          <div class="siro-glow" aria-hidden="true"></div>
+          <div id="siro-island" style="--h:80" data-max="1.75"></div>
+        </div>
+
+        <div class="siro-commands reveal" style="--d:.2s" role="group" aria-label="Things to ask Siro">
+          <button class="say" data-say="next">“Hey Siro, next song”</button>
+          <button class="say" data-say="volume">“Volume 30”</button>
+          <button class="say" data-say="brightness">“Make the screen dimmer”</button>
+          <button class="say" data-say="open">“Open Chrome”</button>
+          <button class="say" data-say="time">“What time is it?”</button>
+          <button class="say" data-say="lock">“Lock my PC”</button>
+          <button class="say" data-say="help">“What can you do?”</button>
+        </div>
+
+        <div class="voice-try reveal">
+          <button class="voice-btn" id="voice-btn" aria-pressed="false"><span class="vb-dot"></span><span class="vb-label">Try the waveform with your voice</span></button>
+          <p class="micro">Only loudness is measured, in your browser. Nothing is recorded or sent.</p>
+        </div>
+
+        <div class="facts">
+          <div class="fact reveal"><b>On-device</b><p>Speech is turned into text on your PC by Whisper, on your graphics card when there is one. Nothing you say leaves it.</p></div>
+          <div class="fact reveal" style="--d:.08s"><b>~0.2 s</b><p>to check whether you said “Hey Siro”. Only the first two seconds after a pause are checked.</p></div>
+          <div class="fact reveal" style="--d:.16s"><b>Any language</b><p>It works out which language you're speaking by itself.</p></div>
+          <div class="fact reveal" style="--d:.24s"><b>Off by default</b><p>The wake phrase is opt-in. Without it, Siro only listens after the shortcut or a tap.</p></div>
+        </div>
+      </section>
+
+      <section class="privacy" id="privacy" data-section="Privacy">
+        <div class="section-head center reveal">
+          <p class="kicker">Privacy</p>
+          <h2>Private <em>by design.</em></h2>
+          <p class="lede">An app that sees your music, messages and clipboard has to earn that. Here's how WinIsland does.</p>
+        </div>
+        <div class="privacy-grid">
+          <div class="pcard reveal"><span class="pc-ic" data-icon="mic"></span><h3>Your voice stays home</h3><p>The speech model is downloaded once, then runs locally. Nothing is kept, logged or sent.</p></div>
+          <div class="pcard reveal" style="--d:.08s"><span class="pc-ic" data-icon="clipboard"></span><h3>Clipboard in memory only</h3><p>Gone the moment WinIsland quits. Never written to disk, never synced.</p></div>
+          <div class="pcard reveal" style="--d:.16s"><span class="pc-ic" data-icon="lock"></span><h3>Passwords skipped</h3><p>Anything your password manager marks as private never enters the history, using the same markers as Windows.</p></div>
+          <div class="pcard reveal" style="--d:.24s"><span class="pc-ic" data-icon="globe"></span><h3>Online only if you want</h3><p>Looking up missing album art sends just the artist and title, and you can switch it off.</p></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================== PRICING ============================== -->
+    <section class="pricing" id="pricing" data-section="Pricing">
+      <div class="section-head center reveal">
+        <p class="kicker">Pricing</p>
+        <h2>Free to start. <em>Yours forever.</em></h2>
+        <p class="lede">No subscription for the app. Buy Pro once and keep it.</p>
+        <div class="currency" role="radiogroup" aria-label="Currency">
+          <button role="radio" aria-checked="true" data-cur="usd">USD</button>
+          <button role="radio" aria-checked="false" data-cur="inr">INR</button>
+        </div>
+      </div>
+
+      <div class="plans">
+        <article class="plan reveal">
+          <h3>Free</h3>
+          <p class="plan-for">The island, and everything it shows you.</p>
+          <p class="price"><b data-usd="$0" data-inr="₹0">$0</b><span>forever</span></p>
+          <ul>
+            <li>The island and its spring animations</li>
+            <li>Now playing, with artwork colours</li>
+            <li>Volume, brightness and battery</li>
+            <li>Bluetooth devices</li>
+            <li>Microphone and camera indicator</li>
+          </ul>
+          <a class="btn btn-ghost" href="#waitlist">Join the waitlist</a>
+        </article>
+
+        <article class="plan pro reveal" style="--d:.08s">
+          <span class="plan-badge">Lifetime</span>
+          <h3>Pro</h3>
+          <p class="plan-for">Everything WinIsland can do. Pay once.</p>
+          <p class="price"><b data-usd="$9.99" data-inr="₹399">$9.99</b><span>one time</span></p>
+          <ul>
+            <li>Everything in Free</li>
+            <li>Clipboard history</li>
+            <li>File shelf</li>
+            <li>Notifications on the island</li>
+            <li>Siro, with “Hey Siro”</li>
+            <li>Every 1.x update included</li>
+          </ul>
+          <a class="btn btn-glow" href="#waitlist"><span>Get early-bird pricing</span></a>
+        </article>
+
+        <article class="plan later reveal" style="--d:.16s">
+          <span class="plan-badge soft">Coming later</span>
+          <h3>Siro+</h3>
+          <p class="plan-for">For when Siro gets a brain in the cloud.</p>
+          <p class="price"><b data-usd="$3.99" data-inr="₹199">$3.99</b><span>a month</span></p>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>Ask Siro anything</li>
+            <li>Summaries and smarter commands</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <a class="btn btn-ghost" href="#waitlist">Tell me when</a>
+        </article>
+      </div>
+      <p class="plans-note reveal">Planned prices; final prices are set at launch. Waitlist members get an early-bird price on Pro.</p>
+    </section>
+
+    <!-- ============================== FAQ ============================== -->
+    <section class="faq" id="faq" data-section="FAQ">
+      <div class="section-head center reveal">
+        <p class="kicker">Questions</p>
+        <h2>Good <em>questions.</em></h2>
+      </div>
+      <div class="faq-list">
+        <details class="reveal">
+          <summary>When can I get WinIsland?</summary>
+          <div class="faq-a"><p>It's being built right now. Join the waitlist and you'll be among the first to try it, with an early-bird price on Pro.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Which versions of Windows does it run on?</summary>
+          <div class="faq-a"><p>Windows 10 (version 2004 or newer) and Windows 11.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Which music apps work?</summary>
+          <div class="faq-a"><p>Any app that tells Windows what it's playing: Spotify, YouTube in Chrome or Edge, Amazon Music, Media Player and many more. When an app doesn't share artwork, WinIsland can look it up (or you can switch that off).</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Is Siro always listening?</summary>
+          <div class="faq-a"><p>No. By default Siro only listens after you press the shortcut or tap the mic. “Hey Siro” is opt-in, and even then only the first two seconds after a pause are checked for the name, on your PC. Nothing is kept or sent.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Will it get in the way of games or films?</summary>
+          <div class="faq-a"><p>No. It hides itself whenever a fullscreen app or game is in front, clicks pass straight through everywhere except the pill, and clicking the pill never steals focus. Siro's speech model is only loaded while you use it and unloads after ten minutes.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>I have more than one monitor.</summary>
+          <div class="faq-a"><p>Pick which display the island sits on in Settings, and how far from the top edge.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Is this made by Apple or Microsoft?</summary>
+          <div class="faq-a"><p>Neither. WinIsland is an independent app, inspired by the island on phones and built natively for Windows.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================== FINAL CTA ============================== -->
+    <section class="final" id="waitlist" data-section="Waitlist">
+      <div class="final-sky" aria-hidden="true">
+        <div class="rays soft"></div>
+        <div class="halo-ring r1"></div><div class="halo-ring r2"></div><div class="halo-ring r3"></div><div class="halo-ring r4"></div>
+      </div>
+      <div class="final-inner">
+        <div id="final-island" class="halo-glow" style="--h:70" data-max="1.5"></div>
+        <h2 class="reveal">Be first to get <em class="halo-word">the halo.</em></h2>
+        <p class="lede reveal" style="--d:.1s">WinIsland is being built right now. Leave your email and we'll tell you the moment it's ready.</p>
+        <form class="waitlist reveal" style="--d:.2s" data-waitlist novalidate>
+          <label class="sr-only" for="email-final">Email address</label>
+          <input id="email-final" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+          <button class="btn btn-glow" type="submit"><span>Join the waitlist</span></button>
+          <p class="form-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">WinIsland</span></a>
+      <nav aria-label="Footer">
+        <a href="#features">Features</a>
+        <a href="#siro">Siro</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <p class="fine">© <span data-year>2026</span> WinIsland. An independent app, not affiliated with Apple Inc. or Microsoft Corporation. Song titles and artists on this page are made up.</p>
+    </div>
+  </footer>
+</body>
+</html>
