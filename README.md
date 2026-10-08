@@ -3,11 +3,13 @@
 The landing page: plain HTML, CSS and JavaScript, no build step.
 
 ```
+config.js     links and the waitlist backend: edit this at launch
 index.html    the page
 styles.css    the look (the sky, the glass, every island view)
 island.js     the island: shapes, spring animation and views copied from the app
 main.js       the page's demos, navigation island, Siro, waitlist and pricing
 favicon.svg
+apps-script/   the Google Sheets waitlist backend (Code.gs) and its setup guide
 ```
 
 ## Run it
@@ -20,11 +22,15 @@ python -m http.server 5173
 
 Then open http://localhost:5173. (Opening `index.html` directly also works, but the "try the waveform with your voice" button needs `localhost` or `https`.)
 
-## Before going live
+## Settings: `config.js`
 
-- **Waitlist**: set `WAITLIST_ENDPOINT` at the top of `main.js` to a form backend that accepts a JSON `POST` of `{ "email": "…" }` (Formspree, Buttondown, a Cloudflare Worker…). Until then the forms show their thank-you message but **send the email nowhere**.
-- **Prices**: the plans in `index.html` (`data-usd` / `data-inr` on each price) are the planned ones; INR is shown by default to visitors in India.
-- **Social preview**: add a 1200×630 image and an `og:image` meta tag in `index.html`.
+Everything you'd change at launch is in [`config.js`](config.js):
+
+- **`downloadUrl`** and **`storeUrl`**: while both are empty the site is in "coming soon" mode. The Download and Microsoft Store buttons show a *Soon* tag and lead to the waitlist. Fill in either one and every button on the page goes live, and the waitlist forms are hidden.
+- **`version`** and **`size`**: shown under the download button.
+- **`waitlistUrl`**: the Google Apps Script that saves sign-ups to a Google Sheet. Setup takes about 5 minutes; see [`apps-script/README.md`](apps-script/README.md). Until it's set, the forms say thank you but **save the email nowhere**.
+
+Prices are in `index.html` (`data-usd` / `data-inr` on each price). INR is shown by default to visitors in India.
 
 ## Deploy
 

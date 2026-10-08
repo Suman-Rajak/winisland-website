@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Allura&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js');</script>
+  <script defer src="config.js"></script>
   <script defer src="island.js"></script>
   <script defer src="main.js"></script>
 </head>
@@ -32,7 +33,7 @@
     <nav class="nav-island" aria-label="Sections">
       <div id="nav-island" style="--h:250"></div>
     </nav>
-    <a class="btn btn-dark btn-sm" href="#waitlist"><span class="long">Join the waitlist</span><span class="short">Join</span></a>
+    <a class="btn btn-dark btn-sm" href="#get" data-cta><span class="long">Join the waitlist</span><span class="short">Join</span></a>
   </header>
 
   <main id="main">
@@ -46,19 +47,29 @@
       </div>
 
       <div class="hero-inner">
-        <p class="eyebrow reveal"><span class="pulse-dot"></span>Coming soon for Windows 10 &amp; 11</p>
+        <a class="eyebrow reveal" href="#brain"><span class="new-tag">New</span>Siro now has a brain: emails, WhatsApp, Hindi<span class="eb-arrow" data-icon="arrow"></span></a>
         <h1 class="hero-title">
           <span class="line"><span>Your desktop</span></span>
           <span class="line"><span>just got a <em class="halo-word">halo.</em></span></span>
         </h1>
-        <p class="hero-sub reveal" style="--d:.35s">WinIsland is a living island of glass at the top of your screen. Music, volume, battery, earbuds, messages, your clipboard and a voice assistant appear the moment they matter, then melt away.</p>
-        <form class="waitlist reveal" style="--d:.5s" data-waitlist novalidate>
-          <label class="sr-only" for="email-hero">Email address</label>
-          <input id="email-hero" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
-          <button class="btn btn-glow" type="submit"><span>Join the waitlist</span></button>
-          <p class="form-msg" role="status" aria-live="polite"></p>
-        </form>
-        <p class="micro reveal" style="--d:.6s">Free to download at launch. No spam, just one email when it's ready.</p>
+        <p class="hero-sub reveal" style="--d:.35s">WinIsland is a living island of glass at the top of Windows. Music, timers, messages, earbuds, your clipboard and Siro, a voice assistant, appear the moment they matter, then melt away.</p>
+
+        <div class="get-row reveal" style="--d:.5s">
+          <a class="btn btn-glow btn-lg" href="#get" data-download><span class="btn-ic" data-icon="download"></span><span>Download for Windows</span></a>
+          <a class="store-badge" href="#get" data-store><span class="sb-ic" data-icon="bag"></span><span class="sb-text"><small>Get it from</small><b>Microsoft Store</b></span></a>
+        </div>
+        <p class="get-note reveal" style="--d:.55s" data-get-note>Coming soon for Windows 10 &amp; 11</p>
+
+        <div class="prelaunch-only reveal" style="--d:.65s">
+          <p class="waitlist-label">Almost ready. Get one email the day it launches:</p>
+          <form class="waitlist" data-waitlist data-source="hero" novalidate>
+            <label class="sr-only" for="email-hero">Email address</label>
+            <input id="email-hero" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+            <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn-dark" type="submit"><span>Notify me</span></button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
       </div>
 
       <div class="screen-wrap reveal" style="--d:.7s">
@@ -90,6 +101,7 @@
         <button class="chip" data-demo="bluetooth"><span class="chip-ic" data-icon="headphones"></span>Earbuds</button>
         <button class="chip" data-demo="battery"><span class="chip-ic" data-icon="bolt"></span>Charging</button>
         <button class="chip" data-demo="privacy"><span class="chip-ic" data-icon="mic"></span>Mic in use</button>
+        <button class="chip" data-demo="timer"><span class="chip-ic" data-icon="stopwatch"></span>Timer</button>
         <button class="chip chip-siro" data-demo="siro"><span class="chip-ic" data-icon="sparkle"></span>Siro</button>
       </div>
     </section>
@@ -216,15 +228,24 @@
           </div>
         </article>
 
-        <article class="card span-6 reveal">
-          <div class="card-screen sky-8"><div data-card="privacy" style="--h:60" data-max="1" data-fit="320"></div></div>
+        <article class="card span-4 reveal">
+          <div class="card-screen sky-10"><div data-card="timers" style="--h:66" data-max="1" data-fit="400"></div></div>
           <div class="card-copy">
-            <h3>Know who's listening</h3>
-            <p>An orange dot for the microphone, green for the camera, and the name of the app using them. Read from the same place as Windows' own privacy indicator.</p>
+            <span class="card-new">New</span>
+            <h3>Timers, alarms &amp; reminders</h3>
+            <p>“Timer 10 minutes”, “wake me up at 6:30”, “remind me at 5 to call Mom”. It counts down in the pill and rings with Snooze and Stop.</p>
           </div>
         </article>
 
-        <article class="card span-6 reveal" style="--d:.08s">
+        <article class="card span-4 reveal" style="--d:.08s">
+          <div class="card-screen sky-8"><div data-card="privacy" style="--h:60" data-max="1" data-fit="320"></div></div>
+          <div class="card-copy">
+            <h3>Know who's listening</h3>
+            <p>An orange dot for the microphone, green for the camera, and the name of the app using them, read from the same place as Windows' own indicator.</p>
+          </div>
+        </article>
+
+        <article class="card span-4 reveal" style="--d:.16s">
           <div class="card-screen sky-9 fs-demo" data-full="0">
             <div class="fs-movie" aria-hidden="true"><div class="movie-scene"></div></div>
             <div data-card="fullscreen" style="--h:60" data-max="1" data-fit="320"></div>
@@ -232,7 +253,7 @@
           </div>
           <div class="card-copy">
             <h3>Never in the way</h3>
-            <p>Hides for fullscreen games and films, lets clicks pass through around it, and never steals focus. It's there when you look, and only then.</p>
+            <p>Hides for fullscreen games and films, lets clicks pass through around it, and never steals focus.</p>
           </div>
         </article>
       </div>
@@ -280,10 +301,10 @@
         <div class="siro-commands reveal" style="--d:.2s" role="group" aria-label="Things to ask Siro">
           <button class="say" data-say="next">“Hey Siro, next song”</button>
           <button class="say" data-say="volume">“Volume 30”</button>
-          <button class="say" data-say="brightness">“Make the screen dimmer”</button>
+          <button class="say" data-say="timer">“Timer 10 minutes”</button>
+          <button class="say" data-say="remind">“Remind me at 5 to call Mom”</button>
           <button class="say" data-say="open">“Open Chrome”</button>
           <button class="say" data-say="time">“What time is it?”</button>
-          <button class="say" data-say="lock">“Lock my PC”</button>
           <button class="say" data-say="help">“What can you do?”</button>
         </div>
 
@@ -293,10 +314,33 @@
         </div>
 
         <div class="facts">
-          <div class="fact reveal"><b>On-device</b><p>Speech is turned into text on your PC by Whisper, on your graphics card when there is one. Nothing you say leaves it.</p></div>
+          <div class="fact reveal"><b>On-device</b><p>Your voice becomes text on your PC, with Whisper on your graphics card when there is one. Recordings never leave it.</p></div>
           <div class="fact reveal" style="--d:.08s"><b>~0.2 s</b><p>to check whether you said “Hey Siro”. Only the first two seconds after a pause are checked.</p></div>
-          <div class="fact reveal" style="--d:.16s"><b>Any language</b><p>It works out which language you're speaking by itself.</p></div>
-          <div class="fact reveal" style="--d:.24s"><b>Off by default</b><p>The wake phrase is opt-in. Without it, Siro only listens after the shortcut or a tap.</p></div>
+          <div class="fact reveal" style="--d:.16s"><b>English &amp; हिंदी</b><p>It works out which one you're speaking. With the brain on, Hinglish works too.</p></div>
+          <div class="fact reveal" style="--d:.24s"><b>Over the music</b><p>“Hey Siro, pause” works even with music playing loud: Windows' echo cancellation filters out the PC's own sound.</p></div>
+        </div>
+
+        <div class="brain" id="brain">
+          <div class="brain-copy reveal">
+            <p class="kicker"><span class="new-tag">New</span>Siro's brain</p>
+            <h3 class="brain-title">Ask anything. Write emails and WhatsApps. <em>Even in Hindi.</em></h3>
+            <p>When a request needs more than your PC, Siro asks Google Gemini with your own free key. It drafts on the island and asks before opening anything. You always press Send.</p>
+            <ul class="brain-points">
+              <li><span data-icon="sparkle"></span>Free Gemini key from Google AI Studio. No card, no subscription.</li>
+              <li><span data-icon="lock"></span>Your key stays in Windows' credential locker.</li>
+              <li><span data-icon="shield"></span>Copied text is only sent when you say “this” or “copied”.</li>
+            </ul>
+          </div>
+          <div class="brain-demo reveal" style="--d:.1s">
+            <div class="brain-stage"><div id="brain-island" style="--h:150" data-max="1.2" data-fit="460"></div></div>
+            <div class="brain-asks" role="group" aria-label="Things to ask Siro's brain">
+              <button class="say" data-ask="email"><span class="say-ic" data-icon="mail"></span>“Mail Rahul that the meeting moved to 4”</button>
+              <button class="say" data-ask="whatsapp"><span class="say-ic" data-icon="chat"></span>“WhatsApp Mom that I'll be late”</button>
+              <button class="say" data-ask="translate"><span class="say-ic" data-icon="translate"></span>“Translate this to Hindi”</button>
+              <button class="say" data-ask="question"><span class="say-ic" data-icon="question"></span>“What's the capital of Peru?”</button>
+              <button class="say" data-ask="hindi" lang="hi"><span class="say-ic" data-icon="sparkle"></span>“ताजमहल किसने बनवाया?”</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -307,10 +351,10 @@
           <p class="lede">An app that sees your music, messages and clipboard has to earn that. Here's how WinIsland does.</p>
         </div>
         <div class="privacy-grid">
-          <div class="pcard reveal"><span class="pc-ic" data-icon="mic"></span><h3>Your voice stays home</h3><p>The speech model is downloaded once, then runs locally. Nothing is kept, logged or sent.</p></div>
+          <div class="pcard reveal"><span class="pc-ic" data-icon="mic"></span><h3>Your voice stays home</h3><p>Speech is turned into text on your PC. Recordings are never kept, logged or sent.</p></div>
           <div class="pcard reveal" style="--d:.08s"><span class="pc-ic" data-icon="clipboard"></span><h3>Clipboard in memory only</h3><p>Gone the moment WinIsland quits. Never written to disk, never synced.</p></div>
           <div class="pcard reveal" style="--d:.16s"><span class="pc-ic" data-icon="lock"></span><h3>Passwords skipped</h3><p>Anything your password manager marks as private never enters the history, using the same markers as Windows.</p></div>
-          <div class="pcard reveal" style="--d:.24s"><span class="pc-ic" data-icon="globe"></span><h3>Online only if you want</h3><p>Looking up missing album art sends just the artist and title, and you can switch it off.</p></div>
+          <div class="pcard reveal" style="--d:.24s"><span class="pc-ic" data-icon="globe"></span><h3>Online only when you choose</h3><p>Album-art lookups send just artist and title. Siro's brain sends only what your PC can't answer, with your own key. Both can be switched off.</p></div>
         </div>
       </section>
     </div>
@@ -320,7 +364,7 @@
       <div class="section-head center reveal">
         <p class="kicker">Pricing</p>
         <h2>Free to start. <em>Yours forever.</em></h2>
-        <p class="lede">No subscription for the app. Buy Pro once and keep it.</p>
+        <p class="lede">No subscriptions, not even for the AI: Siro's brain runs on your own free Gemini key.</p>
         <div class="currency" role="radiogroup" aria-label="Currency">
           <button role="radio" aria-checked="true" data-cur="usd">USD</button>
           <button role="radio" aria-checked="false" data-cur="inr">INR</button>
@@ -339,7 +383,7 @@
             <li>Bluetooth devices</li>
             <li>Microphone and camera indicator</li>
           </ul>
-          <a class="btn btn-ghost" href="#waitlist">Join the waitlist</a>
+          <a class="btn btn-ghost" href="#get" data-plan="free">Join the waitlist</a>
         </article>
 
         <article class="plan pro reveal" style="--d:.08s">
@@ -349,27 +393,14 @@
           <p class="price"><b data-usd="$9.99" data-inr="₹399">$9.99</b><span>one time</span></p>
           <ul>
             <li>Everything in Free</li>
-            <li>Clipboard history</li>
-            <li>File shelf</li>
+            <li>Siro, with “Hey Siro”, in English and Hindi</li>
+            <li>Siro's brain: questions, emails, WhatsApp</li>
+            <li>Timers, alarms and reminders</li>
+            <li>Clipboard history and file shelf</li>
             <li>Notifications on the island</li>
-            <li>Siro, with “Hey Siro”</li>
             <li>Every 1.x update included</li>
           </ul>
-          <a class="btn btn-glow" href="#waitlist"><span>Get early-bird pricing</span></a>
-        </article>
-
-        <article class="plan later reveal" style="--d:.16s">
-          <span class="plan-badge soft">Coming later</span>
-          <h3>Siro+</h3>
-          <p class="plan-for">For when Siro gets a brain in the cloud.</p>
-          <p class="price"><b data-usd="$3.99" data-inr="₹199">$3.99</b><span>a month</span></p>
-          <ul>
-            <li>Everything in Pro</li>
-            <li>Ask Siro anything</li>
-            <li>Summaries and smarter commands</li>
-            <li>Cancel anytime</li>
-          </ul>
-          <a class="btn btn-ghost" href="#waitlist">Tell me when</a>
+          <a class="btn btn-glow" href="#get" data-plan="pro"><span>Get early-bird pricing</span></a>
         </article>
       </div>
       <p class="plans-note reveal">Planned prices; final prices are set at launch. Waitlist members get an early-bird price on Pro.</p>
@@ -384,7 +415,11 @@
       <div class="faq-list">
         <details class="reveal">
           <summary>When can I get WinIsland?</summary>
-          <div class="faq-a"><p>It's being built right now. Join the waitlist and you'll be among the first to try it, with an early-bird price on Pro.</p></div>
+          <div class="faq-a"><p>It's in the final stretch. Join the waitlist and you'll get one email the day it's out, with the early-bird price on Pro.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Should I download it here or from the Microsoft Store?</summary>
+          <div class="faq-a"><p>Either. It's the same app. The Store version installs in a click and keeps itself up to date.</p></div>
         </details>
         <details class="reveal">
           <summary>Which versions of Windows does it run on?</summary>
@@ -396,7 +431,15 @@
         </details>
         <details class="reveal">
           <summary>Is Siro always listening?</summary>
-          <div class="faq-a"><p>No. By default Siro only listens after you press the shortcut or tap the mic. “Hey Siro” is opt-in, and even then only the first two seconds after a pause are checked for the name, on your PC. Nothing is kept or sent.</p></div>
+          <div class="faq-a"><p>No. By default Siro only listens after you press the shortcut or tap the mic. “Hey Siro” is opt-in, and even then only the first two seconds after a pause are checked for the name, on your PC.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Does Siro's brain cost anything?</summary>
+          <div class="faq-a"><p>No. It uses Google Gemini with your own API key, free from Google AI Studio with no card needed. Only the requests your PC can't handle go to Google, and on Gemini's free tier Google may use them to improve its products. You can leave the brain off and still use every on-device command.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Which languages does Siro understand?</summary>
+          <div class="faq-a"><p>English and Hindi, and it works out which one you're speaking. With the brain on, Hinglish requests work too.</p></div>
         </details>
         <details class="reveal">
           <summary>Will it get in the way of games or films?</summary>
@@ -414,48 +457,61 @@
     </section>
 
     <!-- ============================== FOUNDER'S NOTE ============================== -->
-    <section class="founder" id="founder" data-section="Founder's note" aria-labelledby="founder-title">
+    <section class="founder" id="founder" data-section="Founder’s note" aria-labelledby="founder-title">
       <article class="letter reveal">
-        <span class="letter-quote" aria-hidden="true">“</span>
-        <p class="kicker">A note from the founder</p>
-        <h2 class="letter-hi" id="founder-title">Hi, I'm <em>Suman.</em></h2>
-        <div class="letter-body">
-          <p>Phones got a beautiful little island at the top of the screen: what's playing, who's calling, whether your earbuds connected, all in one glance. Windows, where so many of us spend our whole working day, had nothing like it.</p>
-          <p>So I'm building one. WinIsland is a small piece of glass at the top of your screen that shows you what matters, then gets out of your way. I've obsessed over every detail: the spring when it grows, the colours it borrows from your album art, the way it steps aside when you go fullscreen.</p>
-          <p class="letter-lead">A few promises while I build it:</p>
-          <ul class="letter-promises">
-            <li><span data-icon="sparkle"></span>It stays light and quiet, and never steals your focus.</li>
-            <li><span data-icon="sparkle"></span>What you say to Siro and what you copy stay on your PC.</li>
-            <li><span data-icon="sparkle"></span>No subscription for the app. Buy Pro once and it's yours.</li>
-          </ul>
-          <p>It isn't finished yet. Join the waitlist and you'll be among the first to have it at the top of your screen.</p>
+        <div class="letter-head">
+          <span class="signer-mark" aria-hidden="true">S</span>
+          <div>
+            <p class="kicker">From the founder</p>
+            <h2 class="letter-title" id="founder-title">Why I'm building WinIsland</h2>
+          </div>
         </div>
+        <p>Our phones tell us more at a glance than the computers we spend all day on. Windows deserves better: a calm, well-made place for what's happening right now, and an assistant that respects your privacy.</p>
+        <p>WinIsland is built on three principles: feel native and fast, stay out of your way, and treat your data with care. Thank you for being here early.</p>
         <footer class="letter-sign">
           <span class="sig" aria-hidden="true">Suman</span>
-          <span class="signer">
-            <span class="signer-mark" aria-hidden="true">S</span>
-            <span><b>Suman</b><small>Founder, WinIsland</small></span>
-          </span>
+          <span class="signer-name"><b>Suman</b><small>Founder, WinIsland</small></span>
         </footer>
       </article>
     </section>
 
-    <!-- ============================== FINAL CTA ============================== -->
-    <section class="final" id="waitlist" data-section="Waitlist">
+    <!-- ============================== GET WINISLAND ============================== -->
+    <section class="final" id="get" data-section="Get WinIsland">
       <div class="final-sky" aria-hidden="true">
         <div class="rays soft"></div>
         <div class="halo-ring r1"></div><div class="halo-ring r2"></div><div class="halo-ring r3"></div><div class="halo-ring r4"></div>
       </div>
       <div class="final-inner">
-        <div id="final-island" class="halo-glow" style="--h:70" data-max="1.5"></div>
-        <h2 class="reveal">Be first to get <em class="halo-word">the halo.</em></h2>
-        <p class="lede reveal" style="--d:.1s">WinIsland is being built right now. Leave your email and we'll tell you the moment it's ready.</p>
-        <form class="waitlist reveal" style="--d:.2s" data-waitlist novalidate>
-          <label class="sr-only" for="email-final">Email address</label>
-          <input id="email-final" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
-          <button class="btn btn-glow" type="submit"><span>Join the waitlist</span></button>
-          <p class="form-msg" role="status" aria-live="polite"></p>
-        </form>
+        <div id="final-island" class="halo-glow" style="--h:70" data-max="1.5" data-fit="400"></div>
+        <h2 class="reveal">Get <em class="halo-word">the halo.</em></h2>
+        <p class="lede reveal" style="--d:.1s">Two ways to install. Both free to start.</p>
+
+        <div class="get-cards">
+          <a class="get-card reveal" href="#get" data-download>
+            <span class="gc-ic" data-icon="download"></span>
+            <b>Download for Windows</b>
+            <span>The installer, straight from us.</span>
+            <small data-download-meta>Windows 10 (2004 or newer) and 11</small>
+          </a>
+          <a class="get-card reveal" style="--d:.08s" href="#get" data-store>
+            <span class="gc-ic" data-icon="bag"></span>
+            <b>Microsoft Store</b>
+            <span>Installs in a click and updates itself.</span>
+            <small>Windows 10 (2004 or newer) and 11</small>
+          </a>
+        </div>
+
+        <div class="prelaunch-only reveal" style="--d:.15s">
+          <p class="waitlist-label">Not out yet. Get one email the day it launches:</p>
+          <form class="waitlist" data-waitlist data-source="final" novalidate>
+            <label class="sr-only" for="email-final">Email address</label>
+            <input id="email-final" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+            <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn-glow" type="submit"><span>Join the waitlist</span></button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+          <p class="micro">We'll only email you about WinIsland.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -469,8 +525,10 @@
         <a href="#privacy">Privacy</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
+        <a href="#get" data-download>Download</a>
+        <a href="#get" data-store>Microsoft Store</a>
       </nav>
-      <p class="fine">© <span data-year>2026</span> WinIsland. An independent app, not affiliated with Apple Inc. or Microsoft Corporation. Song titles and artists on this page are made up.</p>
+      <p class="fine">© <span data-year>2026</span> WinIsland. An independent app, not affiliated with Apple Inc., Microsoft Corporation or Google LLC. Song titles, artists and people on this page are made up.</p>
     </div>
   </footer>
 </body>

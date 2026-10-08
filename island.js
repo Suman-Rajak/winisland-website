@@ -56,6 +56,12 @@
     open: stroke('<path d="M14 4h6v6M20 4l-9 9M18 14v4.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10"/>'),
     x: stroke('<path d="M6 6l12 12M18 6 6 18"/>'),
     battery: stroke('<rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M22 10.5v3"/><rect x="5" y="9.5" width="7" height="5" rx="1" fill="currentColor" stroke="none"/>'),
+    download: stroke('<path d="M12 3.5v11.5M7 10.5l5 5 5-5"/><path d="M4.5 16.5v2A2 2 0 0 0 6.5 20.5h11a2 2 0 0 0 2-2v-2"/>'),
+    bag: stroke('<path d="M4.5 8h15l-1.2 11.2a2 2 0 0 1-2 1.8H7.7a2 2 0 0 1-2-1.8L4.5 8z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/>'),
+    stopwatch: stroke('<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5M9.5 2.5h5M18.5 6.5l1.5-1.5"/>'),
+    mail: stroke('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/>'),
+    chat: stroke('<path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 9 19.2l-4.5.3z"/>'),
+    translate: stroke('<path d="M3.5 5.5h9M8 3.5v2M10.5 5.5c-.8 3.8-3.4 6.6-6.5 8M6 9c1.2 2 3 3.5 5 4.5"/><path d="M13 20.5l3.8-9 3.7 9M14.3 17.5h5"/>'),
   };
 
   function batteryIcon(percent, color) {
@@ -326,7 +332,7 @@
     const first = player.playing ? ICON.note : ICON.clock;
     const tab = (i, icon, label) =>
       `<button class="tab${i === active ? ' on' : ''}" data-act="tab:${i}" aria-label="${label}">${icon}</button>`;
-    return `<div class="tabs">${tab(0, first, 'Music')}${tab(1, ICON.clipboard, 'Clipboard')}${tab(2, ICON.tray, 'File shelf')}` +
+    return `<div class="tabs">${tab(0, first, 'Music')}${tab(1, ICON.clipboard, 'Clipboard')}${tab(2, ICON.tray, 'File shelf')}${tab(3, ICON.stopwatch, 'Timers')}` +
       `<span class="tab-sep"></span><button class="tab" data-act="siro" aria-label="Siro">${ICON.mic}</button></div>`;
   }
 
@@ -378,6 +384,20 @@
     { kind: 'folder', name: 'Photos' },
     { kind: 'file', name: 'Notes.txt' },
   ];
+
+  const TIMERS = [
+    { kind: 'stopwatch', title: '10 minute timer', when: 'Ends at 5:52 PM', left: '9:42' },
+    { kind: 'bell', title: 'Call Mom', when: 'Today at 7:00 PM', left: '1:17:20' },
+    { kind: 'clock', title: 'Alarm', when: 'Tomorrow at 6:30 AM', left: '12:47:20' },
+    { kind: 'bell', title: 'Check the oven', when: 'Today at 6:05 PM', left: '22:20' },
+  ];
+
+  function timerRows(items) {
+    return items.map((item, i) =>
+      `<div class="tm-row"><span class="tm-ic">${ICON[item.kind]}</span><span class="tm-text"><b>${esc(item.title)}</b><small>${esc(item.when)}</small></span>` +
+      `<span class="tm-left">${item.left}</span><button class="tm-x" data-act="timer-cancel:${i}" aria-label="Cancel ${esc(item.title)}">${ICON.x}</button></div>`
+    ).join('');
+  }
 
   function clipRows(items) {
     return items.map((item, i) => {
@@ -531,9 +551,43 @@
       html: `<span class="orb thinking"></span><span class="siro-status">${esc(text)}</span>`,
     }),
 
-    siroAnswer: (heard, reply) => ({
-      key: 'siro-answer-' + reply, shape: reply.length > 42 ? [380, 74, 26] : [380, 56, 24], cls: 'v-siro answer',
-      html: `<span class="orb"></span><div class="siro-ans"><span class="siro-heard">“${esc(heard)}”</span><b class="siro-reply">${esc(reply)}</b></div>`,
+    siroAnswer: (heard, reply) => {
+      const shape = reply.length > 90 ? [420, 94, 28] : reply.length > 42 ? [380, 74, 26] : [380, 56, 24];
+      return {
+        key: 'siro-answer-' + reply, shape, cls: 'v-siro answer' + (reply.length > 90 ? ' longer' : ''),
+        html: `<span class="orb"></span><div class="siro-ans"><span class="siro-heard">“${esc(heard)}”</span><b class="siro-reply">${esc(reply)}</b></div>`,
+      };
+    },
+
+    // An email or WhatsApp message from Siro's brain, waiting for a yes.
+    siroDraft: d => ({
+      key: 'siro-draft-' + d.title, shape: [440, 140, 30], cls: 'v-siro draft',
+      html: `<span class="orb"></span><div class="draft-panel">` +
+        `<b class="draft-title"><span class="draft-ic">${ICON[d.icon]}</span>${esc(d.title)}</b>` +
+        (d.subject ? `<span class="draft-subject">${esc(d.subject)}</span>` : '') +
+        `<span class="draft-body">${esc(d.body)}</span>` +
+        `<div class="draft-actions"><button class="nx-btn" data-act="draft-cancel">Cancel</button>` +
+        `<button class="nx-btn light" data-act="draft-open">${esc(d.open)}</button></div></div>`,
+    }),
+
+    timerCountdown: (title, seconds) => ({
+      key: 'timer-countdown', shape: [240, 34, 17], cls: 'v-timer',
+      html: `<span class="ic">${ICON.stopwatch}</span><span class="tm-title">${esc(title)}</span><b class="tm-count"></b>`,
+      apply: el => {
+        const s = Math.max(0, Math.round(seconds));
+        el.querySelector('.tm-count').textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+      },
+    }),
+
+    timerRinging: (title, subtitle, icon = 'bell') => ({
+      key: 'timer-ring-' + title, shape: [390, 58, 26], cls: 'v-timer ringing',
+      html: `<span class="ic ring-ic">${ICON[icon]}</span><span class="tm-ring"><b>${esc(title)}</b><small>${esc(subtitle)}</small></span>` +
+        `<span class="tm-buttons"><button class="tm-btn" data-act="timer-snooze">Snooze</button><button class="tm-btn stop" data-act="timer-stop">Stop</button></span>`,
+    }),
+
+    timers: (items = TIMERS) => ({
+      key: 'timers', shape: [420, 214, 32], cls: 'v-timers with-tabs',
+      html: tabsHTML(3) + `<div class="tm-list">${timerRows(items)}</div>`,
     }),
   };
 

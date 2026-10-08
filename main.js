@@ -6,13 +6,61 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-  // Where the waitlist forms send the email, as JSON: { "email": "..." }. Any form backend that
-  // accepts a JSON POST works (Formspree, Buttondown, a Cloudflare Worker, your own API).
-  // While this is empty, nothing is sent anywhere: the forms only show their thank-you state.
-  const WAITLIST_ENDPOINT = '';
+  // Links and the waitlist backend live in config.js.
+  const CONFIG = window.WINISLAND || {};
+  const LAUNCHED = Boolean(CONFIG.downloadUrl || CONFIG.storeUrl);
+  document.documentElement.classList.toggle('launched', LAUNCHED);
 
   $$('[data-icon]').forEach(el => { el.innerHTML = ICON[el.dataset.icon] || ''; });
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
+
+  // ---- Download & Store buttons ------------------------------------------------------------
+  // Live links once config.js has them; until then a "Soon" tag, and a click leads to the
+  // nearest waitlist form instead.
+
+  function nudgeWaitlist(from) {
+    const section = from.closest('section');
+    const form = (section && $('[data-waitlist]', section)) || $('#get [data-waitlist]');
+    const input = $('input[type="email"]', form);
+    const message = $('.form-msg', form);
+    form.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    setTimeout(() => {
+      input.focus({ preventScroll: true });
+      if (!form.classList.contains('done')) message.textContent = 'Not out yet. Leave your email and we’ll tell you the day it is.';
+      form.classList.remove('nudge');
+      void form.offsetWidth;
+      form.classList.add('nudge');
+    }, reduceMotion ? 0 : 450);
+  }
+
+  function wireGetLinks(selector, url, newTab) {
+    $$(selector).forEach(link => {
+      if (url) {
+        link.href = url;
+        if (newTab) { link.target = '_blank'; link.rel = 'noopener'; }
+        return;
+      }
+      if (LAUNCHED) { link.style.display = 'none'; return; } // out, just not on this channel yet
+      if (link.matches('.btn, .store-badge, .get-card')) link.insertAdjacentHTML('beforeend', '<em class="soon-tag">Soon</em>');
+      link.addEventListener('click', e => { e.preventDefault(); nudgeWaitlist(link); });
+    });
+  }
+  wireGetLinks('[data-download]', CONFIG.downloadUrl, false);
+  wireGetLinks('[data-store]', CONFIG.storeUrl, true);
+
+  const requirements = 'Windows 10 (2004 or newer) and 11';
+  const meta = [CONFIG.version && 'Version ' + CONFIG.version, CONFIG.size].filter(Boolean).join(' · ');
+  $$('[data-get-note]').forEach(el => {
+    el.textContent = LAUNCHED ? ['Free', 'Windows 10 & 11', meta].filter(Boolean).join(' · ') : 'Coming soon for Windows 10 & 11';
+  });
+  $$('[data-download-meta]').forEach(el => { el.textContent = [meta, requirements].filter(Boolean).join(' · '); });
+
+  if (LAUNCHED) {
+    const best = CONFIG.downloadUrl || CONFIG.storeUrl;
+    $$('[data-cta]').forEach(a => { a.innerHTML = '<span class="long">Download</span><span class="short">Get</span>'; });
+    $$('[data-plan="free"]').forEach(a => { a.textContent = 'Download free'; a.href = best; });
+    $$('[data-plan="pro"]').forEach(a => { a.innerHTML = '<span>Get Pro</span>'; a.href = CONFIG.storeUrl || best; });
+  }
 
   // ---- Content shared by several islands ---------------------------------------------------
 
@@ -61,8 +109,18 @@
   function expandedView(tab) {
     if (tab === 1) return V.clipboard();
     if (tab === 2) return V.shelf();
+    if (tab === 3) return V.timers();
     return V.mediaExpanded(true);
   }
+
+  // A running timer, counting down in the pill.
+  const countdown = (title, from, ms) => async ({ show, wait }) => {
+    const end = Date.now() + ms;
+    while (Date.now() < end) {
+      show(V.timerCountdown(title, from - (ms - (end - Date.now())) / 1000));
+      if (!await wait(250)) return;
+    }
+  };
 
   // Clicking a clipboard row "copies" it.
   function flashCopied(button) {
@@ -76,6 +134,7 @@
   function islandActions(director) {
     director.onAction = (act, button) => {
       if (act.startsWith('clip:')) flashCopied(button);
+      else if (act.startsWith('timer-cancel:')) button.closest('.tm-row').classList.add('gone');
       else if (act === 'siro') { director.setHover(false); director.run(greet); }
     };
   }
@@ -92,7 +151,7 @@
     { id: 'pricing', label: 'Pricing', sub: 'Free and Pro', icon: 'tag' },
     { id: 'faq', label: 'FAQ', sub: 'Good questions', icon: 'question' },
     { id: 'founder', label: 'Founder’s note', menu: false },
-    { id: 'waitlist', label: 'Waitlist', sub: 'Get early access', icon: 'bell', cta: true },
+    { id: 'get', label: 'Get WinIsland', sub: LAUNCHED ? 'Download it free' : 'Join the waitlist', icon: 'download', cta: true },
   ];
   let currentSection = SECTIONS[0];
 
@@ -168,6 +227,10 @@
       await wait(2600);
     },
     siro: siroScript('Next song', 'Next track.', () => player.next()),
+    timer: async ctx => {
+      await siroScript('Timer 10 minutes', 'Timer set for 10 minutes.')(ctx);
+      if (ctx.alive()) await countdown('10 minute timer', 600, 3600)(ctx);
+    },
   };
 
   // Light up the chip of whatever the island is showing, so it's clear the chips do that.
@@ -190,7 +253,7 @@
   labelHint();
   noHover.addEventListener('change', labelHint);
   hero.onHover = on => { if (on) hint.classList.add('gone'); };
-  hero.autoplay(['notification', 'volume', 'bluetooth', 'siro', 'battery', 'privacy', 'brightness'].map(tagged), { gap: 2600, start: 2400 });
+  hero.autoplay(['notification', 'volume', 'timer', 'bluetooth', 'siro', 'battery', 'privacy', 'brightness'].map(tagged), { gap: 2600, start: 2400 });
 
   // Taskbar clock
   const updateClocks = () => {
@@ -300,6 +363,20 @@
   clipboard.tab = 1;
   clipboard.refresh();
   islandActions(clipboard);
+
+  // Timers: a countdown, then a reminder ringing with Snooze and Stop.
+  const timers = new Director(new Island(card('timers')), { base: () => V.idle() });
+  const ringing = async ({ show, wait }) => {
+    show(V.timerRinging('Call Mom', 'Reminder · 5:00 PM'));
+    await wait(5200);
+  };
+  timers.onAction = act => {
+    if (act === 'timer-stop' || act === 'timer-snooze') {
+      timers.pauseUntil = Date.now() + 2500;
+      timers.stop();
+    }
+  };
+  timers.autoplay([countdown('10 minute timer', 584, 4200), ringing], { gap: 1200, start: 900 });
 
   // Microphone and camera.
   const privacy = new Director(new Island(card('privacy')), { base: () => V.idle() });
@@ -452,24 +529,80 @@
   const SAY = {
     next: ['Next song', 'Next track.', () => player.next()],
     volume: ['Volume 30', 'Volume 30%.'],
-    brightness: ['Make the screen dimmer', 'Brightness 40%.'],
+    timer: ['Timer 10 minutes', 'Timer set for 10 minutes.'],
+    remind: ['Remind me at 5 to call Mom', 'OK, I’ll remind you at 5:00 PM: call Mom.'],
     open: ['Open Chrome', 'Opening Google Chrome.'],
     time: ['What time is it?', () => `It's ${timeNow()}.`],
-    lock: ['Lock my PC', 'Locked.'],
-    help: ['What can you do?', 'I can play, pause and skip music, change the volume and brightness, open apps, tell the time, and lock your PC.'],
+    help: ['What can you do?', 'I can set timers, alarms and reminders, play, pause and skip music, change the volume and brightness, open apps, tell the time, and lock your PC.'],
   };
   const sayButton = name => $(`.say[data-say="${name}"]`);
   const sayScript = name => async ctx => {
-    $$('.say.active').forEach(b => b.classList.remove('active'));
+    $$('.say[data-say].active').forEach(b => b.classList.remove('active'));
     sayButton(name)?.classList.add('active');
     try { await siroScript(...SAY[name])(ctx); } finally { if (ctx.alive()) sayButton(name)?.classList.remove('active'); }
   };
-  $$('.say').forEach(button => button.addEventListener('click', () => {
+  $$('.say[data-say]').forEach(button => button.addEventListener('click', () => {
     stopMic(false);
     siro.pauseUntil = Date.now() + 9000;
     siro.run(sayScript(button.dataset.say));
   }));
   siro.autoplay(Object.keys(SAY).filter(k => k !== 'help').map(sayScript), { gap: 1800, start: 900 });
+
+  // ---- Siro's brain: drafts, answers, copied text ------------------------------------------
+
+  const brainIsland = new Island($('#brain-island'));
+  const brain = new Director(brainIsland, { base: () => V.idle() });
+
+  const drafted = (heard, draft, opened) => async ({ show, wait, director }) => {
+    show(V.siroListening());
+    if (!await wait(1900)) return;
+    show(V.siroThinking());
+    if (!await wait(900)) return;
+    director.opened = opened;
+    show(V.siroDraft(draft));
+    await wait(7000);
+  };
+  const answered = (heard, reply) => async ({ show, wait }) => {
+    show(V.siroListening());
+    if (!await wait(1800)) return;
+    show(V.siroThinking());
+    if (!await wait(900)) return;
+    show(V.siroAnswer(heard, reply));
+    await wait(reply.length > 60 ? 4800 : 3200);
+  };
+
+  const ASK = {
+    email: drafted('Mail Rahul that the meeting moved to 4', {
+      icon: 'mail', title: 'Email to Rahul', subject: 'Meeting moved to 4 PM',
+      body: 'Hi Rahul, quick heads-up: today’s meeting has moved to 4 PM, same room. See you then!', open: 'Open in Gmail',
+    }, 'Opened in Gmail. You press Send.'),
+    whatsapp: drafted('WhatsApp Mom that I’ll be late', {
+      icon: 'chat', title: 'WhatsApp to Mom',
+      body: 'Hi Mom, I’ll be a little late tonight. Don’t wait for me for dinner 🙂', open: 'Open WhatsApp',
+    }, 'Opened WhatsApp. You press Send.'),
+    translate: answered('Translate this to Hindi', 'Translated to Hindi. It’s copied.'),
+    question: answered('What’s the capital of Peru?', 'The capital of Peru is Lima.'),
+    hindi: answered('ताजमहल किसने बनवाया?', 'शाहजहाँ ने, अपनी पत्नी मुमताज़ महल की याद में।'),
+  };
+  const askButton = name => $(`.say[data-ask="${name}"]`);
+  const askScript = name => async ctx => {
+    $$('.say[data-ask].active').forEach(b => b.classList.remove('active'));
+    askButton(name)?.classList.add('active');
+    try { await ASK[name](ctx); } finally { if (ctx.alive()) askButton(name)?.classList.remove('active'); }
+  };
+  $$('.say[data-ask]').forEach(button => button.addEventListener('click', () => {
+    brain.pauseUntil = Date.now() + 12000;
+    brain.run(askScript(button.dataset.ask));
+  }));
+  brain.onAction = act => {
+    if (act === 'draft-cancel') { brain.pauseUntil = Date.now() + 5000; brain.stop(); }
+    if (act === 'draft-open') {
+      brain.pauseUntil = Date.now() + 8000;
+      const reply = brain.opened || 'Opened.';
+      brain.run(async ({ show, wait }) => { show(V.siroAnswer('Yes', reply)); await wait(3000); });
+    }
+  };
+  brain.autoplay(Object.keys(ASK).map(askScript), { gap: 1600, start: 1200 });
 
   // The glow behind the island breathes with the voice while Siro listens.
   const siroGlow = $('.siro-glow');
@@ -613,12 +746,34 @@
     body: 'We’ll email you the moment it’s ready.',
   };
 
+  // Each sign-up goes to the Google Apps Script in config.js (waitlistUrl), which adds a row to
+  // your Google Sheet. Sent as a plain form post: Apps Script can't answer a CORS preflight.
+  async function saveToWaitlist(form, email) {
+    if (!CONFIG.waitlistUrl) {
+      console.warn('waitlistUrl is not set in config.js, so this email was not saved anywhere.');
+      await sleep(500);
+      return {};
+    }
+    const body = new URLSearchParams({
+      email,
+      source: form.dataset.source || '',
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+      lang: navigator.language || '',
+      company: $('.hp', form)?.value || '',
+    });
+    const response = await fetch(CONFIG.waitlistUrl, { method: 'POST', body });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.ok === false) throw new Error('Waitlist sign-up failed: ' + (result.error || response.status));
+    return result;
+  }
+
   $$('[data-waitlist]').forEach(form => form.addEventListener('submit', async e => {
     e.preventDefault();
-    const input = $('input', form);
+    const input = $('input[type="email"]', form);
     const message = $('.form-msg', form);
-    const button = $('button', form);
+    const button = $('button[type="submit"]', form);
     const label = $('span', button);
+    const original = label.textContent;
     const email = input.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       message.textContent = 'That email doesn’t look quite right.';
@@ -631,23 +786,16 @@
     button.disabled = true;
     label.textContent = 'Joining…';
     try {
-      if (WAITLIST_ENDPOINT) {
-        const response = await fetch(WAITLIST_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-        if (!response.ok) throw new Error('Waitlist signup failed: ' + response.status);
-      } else {
-        console.warn('WAITLIST_ENDPOINT is not set in main.js, so this email was not sent anywhere.');
-        await sleep(500);
-      }
+      const result = await saveToWaitlist(form, email);
+      const thanks = result.emailed
+        ? 'Thank you! We’ve sent you a welcome email. Check your inbox.'
+        : 'Thank you! We’ll email you the day WinIsland is ready.';
       $$('[data-waitlist]').forEach(f => {
         f.classList.add('done');
-        $('input', f).value = email;
-        $('button', f).disabled = true;
-        $('button span', f).textContent = 'You’re on the list ✓';
-        $('.form-msg', f).textContent = 'Thank you! We’ll write the moment WinIsland is ready.';
+        $('input[type="email"]', f).value = email;
+        $('button[type="submit"]', f).disabled = true;
+        $('button[type="submit"] span', f).textContent = 'You’re on the list ✓';
+        $('.form-msg', f).textContent = thanks;
       });
       burst(button);
       nav.setHover(false);
@@ -657,7 +805,7 @@
       message.textContent = 'Something went wrong. Please try again in a moment.';
       message.classList.add('error');
       button.disabled = false;
-      label.textContent = 'Join the waitlist';
+      label.textContent = original;
     }
   }));
 
