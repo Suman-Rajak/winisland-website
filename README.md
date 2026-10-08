@@ -29,3 +29,7 @@ Then open http://localhost:5173. (Opening `index.html` directly also works, but 
 ## Deploy
 
 Any static host works: GitHub Pages, Netlify, Cloudflare Pages or Vercel. The site is the root of this repo, so there's nothing to configure.
+
+## License
+
+Copyright © 2026 Suman Rajak. All rights reserved; see [LICENSE](LICENSE). The code is public so the site can be hosted, not for reuse.
