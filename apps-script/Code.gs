@@ -1,5 +1,5 @@
 /**
- * WinIsland waitlist: saves sign-ups from the website into this Google Sheet, then emails a
+ * Glyde waitlist: saves sign-ups from the website into this Google Sheet, then emails a
  * welcome to the person who signed up and a heads-up to you.
  *
  * Paste into Extensions → Apps Script of your sheet and deploy as a web app
@@ -16,8 +16,8 @@
 // ---- Settings ----------------------------------------------------------------------------
 
 const SITE_URL = 'https://suman-rajak.github.io/winisland-website/'; // change to https://winisland.in once it's connected
-const FROM_NAME = 'WinIsland';
-const FROM_EMAIL = 'hello@winisland.in'; // Brevo's sender: needs winisland.in verified in Brevo
+const FROM_NAME = 'Glyde';
+const FROM_EMAIL = 'hello@winisland.in'; // Brevo's sender, on a domain verified in Brevo (switch to the Glyde domain once you have it)
 const REPLY_TO = '';                     // where replies to the welcome go; empty: your Gmail
 const BREVO_LIST_ID = 0;                 // a Brevo contact list to add each sign-up to; 0: don't
 const SEND_WELCOME = true;               // email each new sign-up a welcome
@@ -66,7 +66,7 @@ function doPost(e) {
 
 // Opening the web app's URL in a browser shows this, which is handy to check it's deployed.
 function doGet() {
-  return reply_({ ok: true, service: 'WinIsland waitlist' });
+  return reply_({ ok: true, service: 'Glyde waitlist' });
 }
 
 // Run this from the editor (pick testEmail, click Run): the first time it asks for permission
@@ -136,7 +136,7 @@ function notifyMe_(email, p, total) {
       name: FROM_NAME + ' waitlist',
       subject: 'New sign-up #' + total + ': ' + email,
       body: [
-        email + ' joined the WinIsland waitlist.',
+        email + ' joined the Glyde waitlist.',
         '',
         'Form: ' + (p.source || '-'),
         'Time zone: ' + (p.tz || '-'),
@@ -156,13 +156,13 @@ function welcome_() {
   const text = [
     'Hi there,',
     '',
-    'Thanks for joining the WinIsland waitlist. WinIsland puts a living island of glass at the top of Windows: ' +
-      'music, timers, messages, earbuds, your clipboard and Siro, a voice assistant, right where you glance.',
+    'Thanks for joining the Glyde waitlist. Glyde is a voice island for Windows: music, timers, messages, ' +
+      'earbuds and your clipboard at the top of your screen, right where you glance. And it answers to "Hey Glyde".',
     '',
     "We'll send you one email the day it launches, with the early-bird price on Pro.",
     '',
     'Suman',
-    'Founder, WinIsland',
+    'Founder, Glyde',
     SITE_URL,
     '',
     '--',
@@ -180,21 +180,21 @@ function welcome_() {
           '<div style="display:inline-block;width:64px;height:24px;border-radius:12px;background:#14162b;"></div>' +
         '</div>' +
         '<h1 style="margin:0 0 18px;font-size:24px;line-height:1.25;color:#0d1024;text-align:center;">You\'re on the list ✨</h1>' +
-        '<p style="' + p + '">Thanks for joining the WinIsland waitlist. WinIsland puts a living island of glass at the top of Windows: ' +
-          'music, timers, messages, earbuds, your clipboard and Siro, a voice assistant, right where you glance.</p>' +
+        '<p style="' + p + '">Thanks for joining the Glyde waitlist. Glyde is a voice island for Windows: music, timers, messages, ' +
+          'earbuds and your clipboard at the top of your screen, right where you glance. And it answers to “Hey Glyde”.</p>' +
         '<p style="' + p + '">We\'ll send you <b style="color:#0d1024;">one email the day it launches</b>, with the early-bird price on Pro.</p>' +
         '<p style="margin:28px 0;text-align:center;">' +
           '<a href="' + SITE_URL + '" style="display:inline-block;padding:13px 24px;border-radius:999px;background:#14162b;color:#ffffff;' +
             'font-size:15px;font-weight:600;text-decoration:none;">See what\'s coming</a></p>' +
         '<p style="margin:0;font-size:15px;line-height:1.5;color:#0d1024;">Suman<br>' +
-          '<span style="color:#7b8199;font-size:13px;">Founder, WinIsland</span></p>' +
+          '<span style="color:#7b8199;font-size:13px;">Founder, Glyde</span></p>' +
       '</div>' +
       '<p style="max-width:520px;margin:18px auto 0;font-size:12px;line-height:1.5;color:#7b8199;text-align:center;">' +
         'You\'re getting this because this address joined the waitlist at <a href="' + SITE_URL + '" style="color:#7b8199;">' +
         site + '</a>. Not you, or changed your mind? Reply “remove”.</p>' +
     '</div>';
 
-  return { subject: "You're on the WinIsland waitlist ✨", text: text, html: html };
+  return { subject: "You're on the Glyde waitlist ✨", text: text, html: html };
 }
 
 // ---- Brevo ---------------------------------------------------------------------------------

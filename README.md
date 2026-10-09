@@ -1,13 +1,13 @@
-# WinIsland website
+# Glyde website
 
-The landing page: plain HTML, CSS and JavaScript, no build step.
+The landing page for Glyde (formerly WinIsland): plain HTML, CSS and JavaScript, no build step.
 
 ```
 config.js     links and the waitlist backend: edit this at launch
 index.html    the page
 styles.css    the look (the sky, the glass, every island view)
 island.js     the island: shapes, spring animation and views copied from the app
-main.js       the page's demos, navigation island, Siro, waitlist and pricing
+main.js       the page's demos, navigation island, voice demos, waitlist and pricing
 favicon.svg
 apps-script/   the Google Sheets waitlist backend (Code.gs) and its setup guide
 ```

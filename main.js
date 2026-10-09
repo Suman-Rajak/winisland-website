@@ -1,4 +1,4 @@
-/* WinIsland website: everything on the page that isn't the island itself. */
+/* Glyde website: everything on the page that isn't the island itself. */
 (function () {
   'use strict';
 
@@ -103,7 +103,7 @@
 
   const timeNow = () => new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
-  const greet = siroScript('Hey Siro', 'Hi! Try “next song”, “volume 30” or “open Chrome”.');
+  const greet = siroScript('Hey Glyde', 'Hi! Try “next song”, “volume 30” or “open Chrome”.');
 
   // Hovering an island with music opens it, with tabs for the clipboard and file shelf.
   function expandedView(tab) {
@@ -142,16 +142,18 @@
   // ---- Navigation island ------------------------------------------------------------------------
 
   const SECTIONS = [
-    { id: 'top', label: 'WinIsland' },
+    { id: 'top', label: 'Glyde' },
+    { id: 'why', label: 'Why Glyde', menu: false },
     { id: 'how', label: 'How it works', sub: 'Lives at the top', icon: 'sparkle' },
     { id: 'features', label: 'Features', sub: 'Live activities', icon: 'grid' },
     { id: 'music', label: 'Music', sub: 'Colour that listens', icon: 'note' },
-    { id: 'siro', label: 'Siro', sub: 'Voice assistant', icon: 'mic' },
+    { id: 'say-it', label: 'Just say it', menu: false },
+    { id: 'voice', label: 'Hey Glyde', sub: 'Voice assistant', icon: 'mic' },
     { id: 'privacy', label: 'Privacy', sub: 'Private by design', icon: 'shield' },
     { id: 'pricing', label: 'Pricing', sub: 'Free and Pro', icon: 'tag' },
     { id: 'faq', label: 'FAQ', sub: 'Good questions', icon: 'question' },
     { id: 'founder', label: 'Founder’s note', menu: false },
-    { id: 'get', label: 'Get WinIsland', sub: LAUNCHED ? 'Download it free' : 'Join the waitlist', icon: 'download', cta: true },
+    { id: 'get', label: 'Get Glyde', sub: LAUNCHED ? 'Download it free' : 'Join the waitlist', icon: 'download', cta: true },
   ];
   let currentSection = SECTIONS[0];
 
@@ -186,9 +188,20 @@
     return { key: 'nav-menu', shape: [420, 202, 30], cls: 'v-menu', html: links };
   }
 
-  const navIsland = new Island($('#nav-island'));
+  // The menu island acts the page out too: now playing in Music, Glyde listening in the voice section.
+  const navVoice = () => ({
+    key: 'nav-voice', shape: [196, 34, 17], cls: 'v-navv',
+    html: '<span class="orb listening"></span><b>Say “Hey Glyde”</b>',
+  });
+  const navIsland = new Island($('#nav-island'), { music: true });
+  navIsland.setNeutral(true);
   const nav = new Director(navIsland, {
-    base: () => (scrollY < 140 ? V.idle() : navCompact(currentSection)),
+    base: () => {
+      if (scrollY < 140) return V.idle();
+      if (currentSection.id === 'music') return V.mediaCompact();
+      if (currentSection.id === 'voice' || currentSection.id === 'say-it') return navVoice();
+      return navCompact(currentSection);
+    },
     expanded: navMenu,
   });
   islandActions(nav);
@@ -200,7 +213,8 @@
       if (!entry.isIntersecting) return;
       const id = entry.target.id;
       currentSection = SECTIONS.find(s => s.id === id) || SECTIONS[0];
-      topbar.classList.toggle('on-night', id === 'siro' || id === 'privacy');
+      topbar.classList.toggle('on-night', id === 'voice' || id === 'privacy');
+      navIsland.setNeutral(id !== 'music');
       nav.refresh();
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
@@ -522,7 +536,7 @@
     musicSection.classList.toggle('neutral', !e.target.checked);
   });
 
-  // ---- Siro ------------------------------------------------------------------------------------
+  // ---- Glyde ------------------------------------------------------------------------------------
 
   const siroIsland = new Island($('#siro-island'));
   const siro = new Director(siroIsland, { base: () => V.idle() });
@@ -548,7 +562,7 @@
   }));
   siro.autoplay(Object.keys(SAY).filter(k => k !== 'help').map(sayScript), { gap: 1800, start: 900 });
 
-  // ---- Siro's brain: drafts, answers, copied text ------------------------------------------
+  // ---- Glyde's brain: drafts, answers, copied text ------------------------------------------
 
   const brainIsland = new Island($('#brain-island'));
   const brain = new Director(brainIsland, { base: () => V.idle() });
@@ -604,7 +618,7 @@
   };
   brain.autoplay(Object.keys(ASK).map(askScript), { gap: 1600, start: 1200 });
 
-  // The glow behind the island breathes with the voice while Siro listens.
+  // The glow behind the island breathes with the voice while Glyde listens.
   const siroGlow = $('.siro-glow');
   if (!reduceMotion) {
     let smooth = 0;
@@ -621,7 +635,7 @@
 
   // The real shortcut works here too.
   const keys = $('.keys');
-  function summonSiro() {
+  function summonGlyde() {
     keys.classList.add('pressed');
     setTimeout(() => keys.classList.remove('pressed'), 180);
     const director = siro.visible ? siro : nav;
@@ -629,10 +643,10 @@
     director.setHover(false);
     director.run(greet);
   }
-  keys.addEventListener('click', summonSiro);
-  keys.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); summonSiro(); } });
+  keys.addEventListener('click', summonGlyde);
+  keys.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); summonGlyde(); } });
   document.addEventListener('keydown', e => {
-    if (e.ctrlKey && e.altKey && e.code === 'KeyS') { e.preventDefault(); summonSiro(); }
+    if (e.ctrlKey && e.altKey && e.code === 'KeyS') { e.preventDefault(); summonGlyde(); }
   });
 
   // "Try the waveform with your voice": loudness only, measured in the browser.
@@ -742,7 +756,7 @@
   }
 
   const welcome = {
-    app: 'WinIsland', title: 'You’re on the list', letter: '✦', colors: ['#ffd88a', '#f2b544'],
+    app: 'Glyde', title: 'You’re on the list', letter: '✦', colors: ['#ffd88a', '#f2b544'],
     body: 'We’ll email you the moment it’s ready.',
   };
 
@@ -789,7 +803,7 @@
       const result = await saveToWaitlist(form, email);
       const thanks = result.emailed
         ? 'Thank you! We’ve sent you a welcome email. Check your inbox.'
-        : 'Thank you! We’ll email you the day WinIsland is ready.';
+        : 'Thank you! We’ll email you the day Glyde is ready.';
       $$('[data-waitlist]').forEach(f => {
         f.classList.add('done');
         $('input[type="email"]', f).value = email;
@@ -798,6 +812,8 @@
         $('.form-msg', f).textContent = thanks;
       });
       burst(button);
+      joined = true;
+      updateDock();
       nav.setHover(false);
       nav.run(async ({ show, wait }) => { show(V.notification(welcome)); await wait(4500); });
     } catch (err) {
@@ -808,6 +824,137 @@
       label.textContent = original;
     }
   }));
+
+  // ---- The story, word by word ---------------------------------------------------------------
+  // The sentence lights up as you scroll through its pinned section, and the island above it acts
+  // out the phrase lit last: the music, the message, the dying earbuds, the timer.
+
+  const storyLine = $('.manifesto');
+  const storyLinePin = $('.manifesto-pin');
+  const lineIsland = new Island($('#story-line-island'), { music: true });
+  const words = [];
+  (function wrapWords(node, cue) {
+    [...node.childNodes].forEach(child => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        const pieces = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { pieces.append(part); return; }
+          const word = document.createElement('span');
+          word.className = 'w';
+          word.textContent = part;
+          word.dataset.cueOf = cue;
+          words.push(word);
+          pieces.append(word);
+        });
+        child.replaceWith(pieces);
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        wrapWords(child, child.dataset.cue || cue);
+      }
+    });
+  })($('[data-words]'), '');
+
+  const CUE_VIEWS = {
+    music: () => V.mediaCompact(),
+    message: () => V.notification(MESSAGES[0]),
+    earbuds: () => V.bluetooth('Aurora Buds Pro', 10),
+    timer: () => V.timerCountdown('10 minute timer', 312),
+    glyde: () => V.siroAnswer('Hey Glyde', 'Hi! Try “next song”, “volume 30” or “open Chrome”.'),
+  };
+  let litCount = -1;
+  let shownCue = null;
+  lineIsland.setNeutral(true);
+  lineIsland.show(V.idle());
+
+  function updateStoryLine() {
+    const box = storyLine.getBoundingClientRect();
+    if (box.bottom < -200 || box.top > innerHeight + 200) return;
+    const progress = reduceMotion ? 1 : Math.min(1, Math.max(0, -box.top / (box.height - innerHeight)));
+    const lit = Math.min(words.length, Math.round(progress * words.length * 1.15));
+    if (lit === litCount) return;
+    litCount = lit;
+    words.forEach((word, i) => word.classList.toggle('on', i < lit));
+    let cue = '';
+    for (let i = lit - 1; i >= 0 && !cue; i--) cue = words[i].dataset.cueOf;
+    if (cue === shownCue) return;
+    shownCue = cue;
+    lineIsland.setNeutral(cue !== 'music');
+    lineIsland.show((CUE_VIEWS[cue] || V.idle)());
+    storyLinePin.classList.toggle('lit', cue === 'glyde' || cue === 'glance');
+  }
+
+  // ---- Just say it: phrases drifting both ways, faster while you scroll ----------------------
+
+  const marquees = $$('.marquee').map(el => {
+    const track = $('.marquee-track', el);
+    const count = track.children.length;
+    track.innerHTML = track.innerHTML.repeat(3); // enough copies to never show an edge
+    return { el, track, count, speed: parseFloat(el.dataset.speed) || 30, offset: 0, unit: 0, visible: false };
+  });
+  const measureMarquees = () => marquees.forEach(m => {
+    m.unit = m.track.children[m.count].offsetLeft - m.track.children[0].offsetLeft; // one copy's width
+  });
+
+  if (!reduceMotion) {
+    let raf = 0, lastFrame = 0, lastScroll = scrollY, boost = 0;
+    const frame = now => {
+      const dt = Math.min(0.05, (now - lastFrame) / 1000);
+      lastFrame = now;
+      boost += (Math.min(Math.abs(scrollY - lastScroll), 120) - boost) * 0.12; // smoothed scroll speed
+      lastScroll = scrollY;
+      marquees.forEach(m => {
+        if (!m.visible || !m.unit) return;
+        m.offset += m.speed * (1 + boost / 5) * dt;
+        const x = ((m.offset % m.unit) + m.unit) % m.unit;
+        m.track.style.transform = `translate3d(${-x}px, 0, 0)`;
+      });
+      raf = marquees.some(m => m.visible) ? requestAnimationFrame(frame) : 0;
+    };
+    const watcher = new IntersectionObserver(entries => {
+      entries.forEach(entry => { marquees.find(m => m.el === entry.target).visible = entry.isIntersecting; });
+      if (!raf && marquees.some(m => m.visible)) {
+        lastFrame = performance.now();
+        lastScroll = scrollY;
+        raf = requestAnimationFrame(frame);
+      }
+    });
+    marquees.forEach(m => watcher.observe(m.el));
+    measureMarquees();
+    addEventListener('resize', measureMarquees);
+    if (document.fonts) document.fonts.ready.then(measureMarquees);
+  }
+
+  // ---- Floating "Get Glyde" island -----------------------------------------------------------
+  // Slides up once you're past the story; out of the way at the Get section, the very end, after
+  // signing up, or once closed (for this visit).
+
+  const dock = $('.dock');
+  let joined = false;
+  let getInView = false;
+  let dockClosed = false;
+  try { dockClosed = sessionStorage.getItem('glyde-dock') === 'closed'; } catch (err) { /* storage blocked */ }
+  dock.hidden = false;
+  if (LAUNCHED) {
+    $('[data-dock-note]', dock).textContent = 'Free for Windows 10 & 11';
+    const cta = $('[data-dock-cta]', dock);
+    cta.href = CONFIG.downloadUrl || CONFIG.storeUrl;
+    cta.innerHTML = '<span>Download free</span>';
+  }
+  $('.dock-x', dock).addEventListener('click', () => {
+    dockClosed = true;
+    try { sessionStorage.setItem('glyde-dock', 'closed'); } catch (err) { /* storage blocked */ }
+    updateDock();
+  });
+  new IntersectionObserver(entries => {
+    getInView = entries[entries.length - 1].isIntersecting;
+    updateDock();
+  }).observe($('#get'));
+
+  function updateDock() {
+    const nearEnd = scrollY + innerHeight > document.documentElement.scrollHeight - 160;
+    const pastStory = storyLine.getBoundingClientRect().bottom < innerHeight * 0.6;
+    dock.classList.toggle('show', !dockClosed && !joined && !getInView && !nearEnd && pastStory);
+  }
 
   // ---- Fit every island to the room it has ----------------------------------------------------
 
@@ -829,6 +976,7 @@
   // ---- Scroll: top bar, hero tilt, progress ring -------------------------------------------------
 
   const screenWrap = $('.hero .screen-wrap');
+  const scrollCue = $('.scroll-cue');
   let wasTop = true;
   let scrollQueued = false;
   function onScroll() {
@@ -840,6 +988,9 @@
     if (atTop !== wasTop) { wasTop = atTop; nav.refresh(); }
     const ring = navIsland.currentEl && navIsland.currentEl.querySelector('.ring-fg');
     if (ring) ring.style.strokeDashoffset = (100 - scrollProgress() * 100).toFixed(1);
+    scrollCue.classList.toggle('gone', y > 60);
+    updateStoryLine();
+    updateDock();
   }
   addEventListener('scroll', () => { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();

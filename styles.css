@@ -1598,6 +1598,142 @@ html.launched .prelaunch-only { display: none; }
   .brain { padding: 26px 16px; border-radius: 26px; }
 }
 
+/* ---------- Scroll cue ---------- */
+
+.scroll-cue { display: inline-flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 52px; font-size: 13px; font-weight: 500; color: var(--ink-3); text-decoration: none; transition: opacity .4s; }
+.scroll-cue.gone { opacity: 0; pointer-events: none; }
+.mouse { position: relative; width: 22px; height: 34px; border: 1.8px solid currentColor; border-radius: 12px; }
+.mouse::after { content: ''; position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: currentColor; animation: wheel 1.8s ease-in-out infinite; }
+@keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(9px); opacity: 0; } 100% { opacity: 0; } }
+
+/* ---------- The story, word by word ---------- */
+
+.manifesto { position: relative; height: 270vh; }
+.manifesto-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(30px, 6vh, 64px);
+  padding: 64px var(--gutter) 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+.manifesto-pin::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  z-index: -1;
+  width: min(1000px, 140vw);
+  height: 70%;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 228, 170, .75), rgba(255, 228, 170, 0));
+  opacity: 0;
+  transform: scale(.8);
+  transition: opacity 1.2s var(--ease-out), transform 1.6s var(--ease-out);
+}
+.manifesto-pin.lit::before { opacity: 1; transform: none; }
+.manifesto-pin .island-stage { flex: none; }
+.manifesto-text {
+  max-width: 1020px;
+  font-size: clamp(30px, 4.5vw, 64px);
+  font-weight: 600;
+  line-height: 1.13;
+  letter-spacing: -.04em;
+  text-align: center;
+  text-wrap: balance;
+}
+.manifesto-text .w { opacity: .12; transition: opacity .4s var(--ease-out); }
+.manifesto-text .w.on { opacity: 1; }
+.manifesto-text em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+.manifesto-text em .w {
+  padding-right: .05em;
+  background: linear-gradient(100deg, #b4740f, #f2b544 45%, #c48419);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (prefers-reduced-motion: reduce) { .manifesto-text .w { opacity: 1; } }
+
+/* ---------- Just say it ---------- */
+
+.say-it { padding: 110px 0 130px; overflow-x: clip; }
+.marquee {
+  margin-top: 16px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.say-it .section-head + .marquee { margin-top: 60px; }
+.marquee-track { display: flex; gap: 14px; width: max-content; padding: 10px 0 20px; will-change: transform; }
+.phrase {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  height: 60px;
+  padding: 0 26px 0 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #1c1f38, #0c0e1f);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 14px 30px -16px rgba(13, 16, 36, .7);
+}
+.phrase .dot { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #8a6cff, #f05ab4 50%, #3db8ff); box-shadow: 0 0 10px rgba(240, 90, 180, .6); }
+.marquee.light .phrase { background: rgba(255, 255, 255, .88); color: var(--ink); box-shadow: inset 0 0 0 1px #fff, 0 12px 26px -16px rgba(40, 50, 120, .45); }
+.ph-ic { width: 18px; height: 18px; color: var(--gold-deep); }
+.say-it-note { max-width: 580px; margin: 30px auto 0; padding: 0 var(--gutter); text-align: center; font-size: 15px; color: var(--ink-3); }
+
+/* ---------- Floating "Get Glyde" island ---------- */
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 7px 7px 16px;
+  border-radius: 999px;
+  background: rgba(16, 18, 36, .94);
+  color: #fff;
+  box-shadow: 0 0 0 .5px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .14), 0 18px 40px -12px rgba(10, 10, 40, .6), 0 0 50px -10px rgba(242, 181, 68, .55);
+  transform: translate(-50%, 160%);
+  opacity: 0;
+  transition: transform .7s var(--ease-spring), opacity .3s;
+}
+.dock[hidden] { display: none; }
+.dock.show { transform: translate(-50%, 0); opacity: 1; }
+.dock-mark { position: relative; flex: none; width: 26px; height: 12px; margin-top: 6px; border-radius: 6px; background: #2a2d45; box-shadow: 0 0 0 1px rgba(255, 255, 255, .4), 0 0 12px rgba(242, 181, 68, .8); }
+.dock-mark::after { content: ''; position: absolute; left: 50%; top: -8px; width: 18px; height: 5px; translate: -50% 0; border-radius: 50%; border: 1.4px solid var(--gold); }
+.dock-text b { display: block; font-size: 14px; line-height: 1.2; }
+.dock-text small { display: block; font-size: 11.5px; color: rgba(255, 255, 255, .6); white-space: nowrap; }
+.dock .btn { height: 40px; }
+.dock .btn-glow { background: linear-gradient(180deg, #ffe2a0, #f2b544); color: #2b1d02; box-shadow: 0 8px 22px -10px rgba(242, 181, 68, .9), inset 0 1px 0 rgba(255, 255, 255, .6); }
+.dock-x { flex: none; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .08); color: rgba(255, 255, 255, .7); font-size: 18px; line-height: 1; cursor: pointer; }
+.dock-x:hover { background: rgba(255, 255, 255, .16); color: #fff; }
+
+/* Navigation island: the voice section's view */
+.v-navv { display: flex; align-items: center; gap: 9px; padding: 0 14px 0 8px; }
+.v-navv .orb { width: 18px; height: 18px; flex: none; }
+.v-navv b { font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .manifesto { height: 230vh; }
+  .phrase { height: 50px; font-size: 16px; padding: 0 20px 0 16px; }
+  .dock { left: 12px; right: 12px; transform: translateY(160%); }
+  .dock.show { transform: none; }
+  .dock .btn { margin-left: auto; }
+}
+
 /* ---------- Smaller screens ---------- */
 
 @media (max-width: 1000px) {

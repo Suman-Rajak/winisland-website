@@ -1,4 +1,4 @@
-# Waitlist → Google Sheet + welcome emails
+# Glyde waitlist → Google Sheet + welcome emails
 
 Every email entered in the website's waitlist forms lands as a new row in a Google Sheet you own:
 when they joined, the email, which form (hero or the one at the bottom), their time zone and language.
@@ -14,13 +14,13 @@ The sheet's last column says what happened, e.g. `sent via Brevo · on Brevo lis
 
 This works on its own, with welcome emails from your Gmail.
 
-1. **Create the sheet.** Go to [sheets.new](https://sheets.new) and name it, for example, *WinIsland waitlist*.
+1. **Create the sheet.** Go to [sheets.new](https://sheets.new) and name it, for example, *Glyde waitlist*.
 2. **Add the script.** In the sheet: **Extensions → Apps Script**. Delete what's in `Code.gs`, paste in everything from [`Code.gs`](Code.gs) in this folder, and click **Save** (the disk icon).
 3. **Allow it and preview the welcome.** At the top of the editor, pick **testEmail** in the function list and click **Run**. Google asks for permission (to manage the sheet, send email as you, and connect to Brevo): **Review permissions**, choose your account, then **Advanced → Go to … (unsafe) → Allow**. The script is your own, which is why Google calls it unverified. The welcome email arrives in your inbox.
 4. **Deploy it.** Click **Deploy → New deployment**. Next to "Select type", click the gear and pick **Web app**. Set **Execute as: Me** and **Who has access: Anyone**, then **Deploy**.
 5. **Connect the website.** Copy the **Web app URL** (it ends in `/exec`), paste it into the website's `config.js` as `waitlistUrl: 'https://script.google.com/macros/s/…/exec'`, then commit and push.
 
-**Check it:** open the `/exec` URL in your browser; it should show `{"ok":true,"service":"WinIsland waitlist"}`. Then sign up on the site with an email you can read: a **Waitlist** tab appears in the sheet with the row, the welcome arrives, and you get the heads-up.
+**Check it:** open the `/exec` URL in your browser; it should show `{"ok":true,"service":"Glyde waitlist"}`. Then sign up on the site with an email you can read: a **Waitlist** tab appears in the sheet with the row, the welcome arrives, and you get the heads-up.
 
 ## Part 2: Brevo (about 15 minutes, plus waiting for DNS)
 
@@ -32,7 +32,7 @@ Brevo sends the welcomes from **hello@winisland.in** instead of your Gmail, 300 
    - Back in Brevo, click **Authenticate**. DNS can take from minutes to a day to show up.
 
    This is what keeps the welcome emails out of spam.
-3. **Add the sender.** In **Senders**, add **WinIsland**, `hello@winisland.in`. With the domain verified this is usually accepted straight away. If Brevo insists on emailing a code to that address, you'll need a mailbox for it first; Zoho Mail's free plan works with Wix domains.
+3. **Add the sender.** In **Senders**, add **Glyde**, `hello@winisland.in` (or an address on your Glyde domain once you have one). With the domain verified this is usually accepted straight away. If Brevo insists on emailing a code to that address, you'll need a mailbox for it first; Zoho Mail's free plan works with Wix domains.
 4. **Create an API key.** **Settings → SMTP & API → API keys → Generate a new API key**. Copy it (it starts with `xkeysib-`).
 5. **Give the key to the script, privately.** In Apps Script: **Project Settings** (the gear on the left) **→ Script Properties → Add script property**: name `BREVO_API_KEY`, value the key. **Save**.
 
@@ -44,7 +44,7 @@ Brevo sends the welcomes from **hello@winisland.in** instead of your Gmail, 300 
 
 If every sign-up also goes onto a Brevo contact list, the launch email can be a Brevo campaign, with a proper unsubscribe link handled for you.
 
-1. In Brevo: **Contacts → Lists → Create a list**, e.g. *WinIsland waitlist*, and note its **ID** (a number, shown in the list of lists).
+1. In Brevo: **Contacts → Lists → Create a list**, e.g. *Glyde waitlist*, and note its **ID** (a number, shown in the list of lists).
 2. In `Code.gs`, set `const BREVO_LIST_ID = <that number>;`, save, and publish a new version (step 7 above).
 3. People who signed up earlier aren't on it yet: download the sheet as CSV (**File → Download → CSV**) and import it in **Contacts → Import contacts** into the same list.
 

@@ -1,5 +1,5 @@
 /*
-  WinIsland website: the island itself.
+  Glyde website: the island itself.
 
   A web copy of the app's pill. The shapes are the app's own (each activity's PillShape:
   width, height, corner radius), growing uses the same bouncy spring and shrinking a firmer
@@ -138,7 +138,7 @@
 
   const player = new Player(TRACKS);
 
-  // Loudness for Siro's waveform: the visitor's microphone when they turn it on, otherwise
+  // Loudness for Glyde's waveform: the visitor's microphone when they turn it on, otherwise
   // something that moves like speech (bursts of syllables over a low floor).
   const voice = {
     source: null,
@@ -333,7 +333,7 @@
     const tab = (i, icon, label) =>
       `<button class="tab${i === active ? ' on' : ''}" data-act="tab:${i}" aria-label="${label}">${icon}</button>`;
     return `<div class="tabs">${tab(0, first, 'Music')}${tab(1, ICON.clipboard, 'Clipboard')}${tab(2, ICON.tray, 'File shelf')}${tab(3, ICON.stopwatch, 'Timers')}` +
-      `<span class="tab-sep"></span><button class="tab" data-act="siro" aria-label="Siro">${ICON.mic}</button></div>`;
+      `<span class="tab-sep"></span><button class="tab" data-act="siro" aria-label="Glyde">${ICON.mic}</button></div>`;
   }
 
   // Keeps a media view in step with the player: artwork, titles, progress, play state.
@@ -492,7 +492,7 @@
     bluetooth: (name, percent, connected = true) => ({
       key: 'bt-' + (connected ? 'on' : 'off'), shape: [300, 34, 17], cls: 'v-bt' + (connected ? '' : ' off'),
       html: `<span class="ic">${ICON.headphones}</span><b class="bt-name">${esc(name)}</b>` +
-        (connected ? `<span class="bt-status">${percent}%</span>${batteryIcon(percent, '#30d158')}` : '<span class="bt-status">Disconnected</span>'),
+        (connected ? `<span class="bt-status">${percent}%</span>${batteryIcon(percent, percent <= 20 ? '#ff453a' : '#30d158')}` : '<span class="bt-status">Disconnected</span>'),
     }),
 
     privacy: (app, what = 'Microphone') => {
@@ -559,7 +559,7 @@
       };
     },
 
-    // An email or WhatsApp message from Siro's brain, waiting for a yes.
+    // An email or WhatsApp message from Glyde's brain, waiting for a yes.
     siroDraft: d => ({
       key: 'siro-draft-' + d.title, shape: [440, 140, 30], cls: 'v-siro draft',
       html: `<span class="orb"></span><div class="draft-panel">` +

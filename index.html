@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WinIsland: your desktop just got a halo</title>
-  <meta name="description" content="WinIsland is a living island of glass at the top of Windows. Music, volume, battery, earbuds, notifications, clipboard history, a file shelf and Siro, a private voice assistant, appear the moment they matter.">
+  <title>Glyde: your desktop just got a halo</title>
+  <meta name="description" content="Glyde is a voice island for Windows: a living pill of glass at the top of your screen for music, timers, messages, earbuds and your clipboard, and it answers to “Hey Glyde”.">
   <meta name="theme-color" content="#e9e2ff">
-  <meta property="og:title" content="WinIsland: your desktop just got a halo">
-  <meta property="og:description" content="A living island of glass at the top of Windows. Coming soon for Windows 10 and 11.">
+  <meta property="og:title" content="Glyde: your desktop just got a halo">
+  <meta property="og:description" content="A voice island for Windows. Coming soon for Windows 10 and 11.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -26,9 +26,9 @@
 
   <!-- The menu is an island too: it shows where you are, and opens into the sections on hover. -->
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="WinIsland home">
+    <a class="brand" href="#top" aria-label="Glyde home">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-name">WinIsland</span>
+      <span class="brand-name">Glyde</span>
     </a>
     <nav class="nav-island" aria-label="Sections">
       <div id="nav-island" style="--h:250"></div>
@@ -39,7 +39,7 @@
   <main id="main">
 
     <!-- ============================== HERO ============================== -->
-    <section class="hero" id="top" data-section="WinIsland">
+    <section class="hero" id="top" data-section="Glyde">
       <div class="hero-sky" aria-hidden="true">
         <div class="rays"></div>
         <div class="halo"></div>
@@ -47,12 +47,12 @@
       </div>
 
       <div class="hero-inner">
-        <a class="eyebrow reveal" href="#brain"><span class="new-tag">New</span>Siro now has a brain: emails, WhatsApp, Hindi<span class="eb-arrow" data-icon="arrow"></span></a>
+        <a class="eyebrow reveal" href="#brain"><span class="new-tag">New</span>Glyde now writes emails and WhatsApps, in Hindi too<span class="eb-arrow" data-icon="arrow"></span></a>
         <h1 class="hero-title">
           <span class="line"><span>Your desktop</span></span>
           <span class="line"><span>just got a <em class="halo-word">halo.</em></span></span>
         </h1>
-        <p class="hero-sub reveal" style="--d:.35s">WinIsland is a living island of glass at the top of Windows. Music, timers, messages, earbuds, your clipboard and Siro, a voice assistant, appear the moment they matter, then melt away.</p>
+        <p class="hero-sub reveal" style="--d:.35s">Glyde is a voice island for Windows. Music, timers, messages, earbuds and your clipboard appear at the top of your screen the moment they matter, then melt away. And it answers to “Hey&nbsp;Glyde”.</p>
 
         <div class="get-row reveal" style="--d:.5s">
           <a class="btn btn-glow btn-lg" href="#get" data-download><span class="btn-ic" data-icon="download"></span><span>Download for Windows</span></a>
@@ -102,7 +102,17 @@
         <button class="chip" data-demo="battery"><span class="chip-ic" data-icon="bolt"></span>Charging</button>
         <button class="chip" data-demo="privacy"><span class="chip-ic" data-icon="mic"></span>Mic in use</button>
         <button class="chip" data-demo="timer"><span class="chip-ic" data-icon="stopwatch"></span>Timer</button>
-        <button class="chip chip-siro" data-demo="siro"><span class="chip-ic" data-icon="sparkle"></span>Siro</button>
+        <button class="chip chip-siro" data-demo="siro"><span class="chip-ic" data-icon="sparkle"></span>Hey&nbsp;Glyde</button>
+      </div>
+      <a class="scroll-cue" href="#why"><span class="mouse" aria-hidden="true"></span>Scroll to watch it come alive</a>
+    </section>
+
+    <!-- ============================== THE STORY, WORD BY WORD ============================== -->
+    <!-- Pinned while you scroll: the words light up one by one, and the island acts each phrase out. -->
+    <section class="manifesto" id="why" data-section="Why Glyde" aria-label="Why Glyde">
+      <div class="manifesto-pin">
+        <div id="story-line-island" class="halo-glow" style="--h:80" data-max="1.35" data-fit="400"></div>
+        <p class="manifesto-text" data-words>Your PC knows <span data-cue="music">what's playing,</span> <span data-cue="message">who just messaged,</span> <span data-cue="earbuds">when your earbuds are about to die</span> and <span data-cue="timer">how long is left on the timer.</span> <span data-cue="quiet">It just never tells you.</span> <em data-cue="glyde">Glyde does.</em> <span data-cue="glance">One glance at the top of your screen, then it gets out of your way.</span></p>
       </div>
     </section>
 
@@ -266,7 +276,7 @@
         <div class="music-copy reveal">
           <p class="kicker">Colour that listens</p>
           <h2>It wears <em>your music.</em></h2>
-          <p class="lede">The glass, the level bars and the progress bar take their colours from the artwork. No artwork? WinIsland looks it up, or paints a colour from the song itself.</p>
+          <p class="lede">The glass, the level bars and the progress bar take their colours from the artwork. No artwork? Glyde looks it up, or paints a colour from the song itself.</p>
           <div class="albums" role="radiogroup" aria-label="Pick a song"></div>
           <label class="switch">
             <input type="checkbox" id="match-colors" checked>
@@ -281,16 +291,48 @@
       </div>
     </section>
 
-    <!-- ============================== NIGHT: SIRO + PRIVACY ============================== -->
+    <!-- ============================== JUST SAY IT ============================== -->
+    <section class="say-it" id="say-it" data-section="Just say it" aria-labelledby="say-it-title">
+      <div class="section-head center reveal">
+        <p class="kicker">Just say it</p>
+        <h2 id="say-it-title">Talk to your PC <em>like a person.</em></h2>
+      </div>
+      <div class="marquee" data-speed="38" aria-hidden="true">
+        <div class="marquee-track">
+          <span class="phrase"><i class="dot"></i>Hey&nbsp;Glyde, next song</span>
+          <span class="phrase"><i class="dot"></i>Timer 10 minutes</span>
+          <span class="phrase"><i class="dot"></i>Wake me up at 6:30</span>
+          <span class="phrase"><i class="dot"></i>Volume 30</span>
+          <span class="phrase"><i class="dot"></i>Remind me at 5 to call Mom</span>
+          <span class="phrase"><i class="dot"></i>Open Chrome</span>
+          <span class="phrase"><i class="dot"></i>Make the screen dimmer</span>
+          <span class="phrase"><i class="dot"></i>What time is it?</span>
+        </div>
+      </div>
+      <div class="marquee light" data-speed="-30" aria-hidden="true">
+        <div class="marquee-track">
+          <span class="phrase"><span class="ph-ic" data-icon="mail"></span>Mail Rahul that the meeting moved to 4</span>
+          <span class="phrase"><span class="ph-ic" data-icon="chat"></span>WhatsApp Mom that I'll be late</span>
+          <span class="phrase"><span class="ph-ic" data-icon="translate"></span>Translate this to Hindi</span>
+          <span class="phrase" lang="hi"><span class="ph-ic" data-icon="translate"></span>इसे अंग्रेज़ी में ट्रांसलेट करो</span>
+          <span class="phrase"><span class="ph-ic" data-icon="clipboard"></span>Summarise this</span>
+          <span class="phrase"><span class="ph-ic" data-icon="question"></span>What's the capital of Peru?</span>
+          <span class="phrase"><span class="ph-ic" data-icon="text"></span>Make this formal</span>
+        </div>
+      </div>
+      <p class="say-it-note reveal">On your PC, in English and Hindi. The ones that need a brain go to Gemini with your own free key.</p>
+    </section>
+
+    <!-- ============================== NIGHT: VOICE + PRIVACY ============================== -->
     <div class="night">
       <div class="stars" aria-hidden="true"></div>
       <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 
-      <section class="siro" id="siro" data-section="Siro">
+      <section class="siro" id="voice" data-section="Hey Glyde">
         <div class="section-head center reveal">
           <p class="kicker">Voice assistant</p>
-          <h2>Meet <em class="siro-word">Siro.</em></h2>
-          <p class="lede">Press <span class="keys" role="button" tabindex="0" aria-label="Press Ctrl Alt S to try Siro"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>S</kbd></span> or just say “Hey Siro”. It listens, understands, and does it, all on your PC.</p>
+          <h2>Just say <em class="siro-word">“Hey&nbsp;Glyde.”</em></h2>
+          <p class="lede">Press <span class="keys" role="button" tabindex="0" aria-label="Press Ctrl Alt S to try Glyde"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>S</kbd></span> or just say it. Glyde listens, understands, and does it, right on your PC.</p>
         </div>
 
         <div class="siro-stage reveal" style="--d:.1s">
@@ -298,8 +340,8 @@
           <div id="siro-island" style="--h:80" data-max="1.75"></div>
         </div>
 
-        <div class="siro-commands reveal" style="--d:.2s" role="group" aria-label="Things to ask Siro">
-          <button class="say" data-say="next">“Hey Siro, next song”</button>
+        <div class="siro-commands reveal" style="--d:.2s" role="group" aria-label="Things to ask Glyde">
+          <button class="say" data-say="next">“Hey&nbsp;Glyde, next song”</button>
           <button class="say" data-say="volume">“Volume 30”</button>
           <button class="say" data-say="timer">“Timer 10 minutes”</button>
           <button class="say" data-say="remind">“Remind me at 5 to call Mom”</button>
@@ -315,16 +357,16 @@
 
         <div class="facts">
           <div class="fact reveal"><b>On-device</b><p>Your voice becomes text on your PC, with Whisper on your graphics card when there is one. Recordings never leave it.</p></div>
-          <div class="fact reveal" style="--d:.08s"><b>~0.2 s</b><p>to check whether you said “Hey Siro”. Only the first two seconds after a pause are checked.</p></div>
+          <div class="fact reveal" style="--d:.08s"><b>~0.2 s</b><p>to check whether you said “Hey&nbsp;Glyde”. Only the first two seconds after a pause are checked.</p></div>
           <div class="fact reveal" style="--d:.16s"><b>English &amp; हिंदी</b><p>It works out which one you're speaking. With the brain on, Hinglish works too.</p></div>
-          <div class="fact reveal" style="--d:.24s"><b>Over the music</b><p>“Hey Siro, pause” works even with music playing loud: Windows' echo cancellation filters out the PC's own sound.</p></div>
+          <div class="fact reveal" style="--d:.24s"><b>Over the music</b><p>“Hey&nbsp;Glyde, pause” works even with music playing loud: Windows' echo cancellation filters out the PC's own sound.</p></div>
         </div>
 
         <div class="brain" id="brain">
           <div class="brain-copy reveal">
-            <p class="kicker"><span class="new-tag">New</span>Siro's brain</p>
+            <p class="kicker"><span class="new-tag">New</span>Glyde's brain</p>
             <h3 class="brain-title">Ask anything. Write emails and WhatsApps. <em>Even in Hindi.</em></h3>
-            <p>When a request needs more than your PC, Siro asks Google Gemini with your own free key. It drafts on the island and asks before opening anything. You always press Send.</p>
+            <p>When a request needs more than your PC, Glyde asks Google Gemini with your own free key. It drafts on the island and asks before opening anything. You always press Send.</p>
             <ul class="brain-points">
               <li><span data-icon="sparkle"></span>Free Gemini key from Google AI Studio. No card, no subscription.</li>
               <li><span data-icon="lock"></span>Your key stays in Windows' credential locker.</li>
@@ -333,7 +375,7 @@
           </div>
           <div class="brain-demo reveal" style="--d:.1s">
             <div class="brain-stage"><div id="brain-island" style="--h:150" data-max="1.2" data-fit="460"></div></div>
-            <div class="brain-asks" role="group" aria-label="Things to ask Siro's brain">
+            <div class="brain-asks" role="group" aria-label="Things to ask Glyde's brain">
               <button class="say" data-ask="email"><span class="say-ic" data-icon="mail"></span>“Mail Rahul that the meeting moved to 4”</button>
               <button class="say" data-ask="whatsapp"><span class="say-ic" data-icon="chat"></span>“WhatsApp Mom that I'll be late”</button>
               <button class="say" data-ask="translate"><span class="say-ic" data-icon="translate"></span>“Translate this to Hindi”</button>
@@ -348,13 +390,13 @@
         <div class="section-head center reveal">
           <p class="kicker">Privacy</p>
           <h2>Private <em>by design.</em></h2>
-          <p class="lede">An app that sees your music, messages and clipboard has to earn that. Here's how WinIsland does.</p>
+          <p class="lede">An app that sees your music, messages and clipboard has to earn that. Here's how Glyde does.</p>
         </div>
         <div class="privacy-grid">
           <div class="pcard reveal"><span class="pc-ic" data-icon="mic"></span><h3>Your voice stays home</h3><p>Speech is turned into text on your PC. Recordings are never kept, logged or sent.</p></div>
-          <div class="pcard reveal" style="--d:.08s"><span class="pc-ic" data-icon="clipboard"></span><h3>Clipboard in memory only</h3><p>Gone the moment WinIsland quits. Never written to disk, never synced.</p></div>
+          <div class="pcard reveal" style="--d:.08s"><span class="pc-ic" data-icon="clipboard"></span><h3>Clipboard in memory only</h3><p>Gone the moment Glyde quits. Never written to disk, never synced.</p></div>
           <div class="pcard reveal" style="--d:.16s"><span class="pc-ic" data-icon="lock"></span><h3>Passwords skipped</h3><p>Anything your password manager marks as private never enters the history, using the same markers as Windows.</p></div>
-          <div class="pcard reveal" style="--d:.24s"><span class="pc-ic" data-icon="globe"></span><h3>Online only when you choose</h3><p>Album-art lookups send just artist and title. Siro's brain sends only what your PC can't answer, with your own key. Both can be switched off.</p></div>
+          <div class="pcard reveal" style="--d:.24s"><span class="pc-ic" data-icon="globe"></span><h3>Online only when you choose</h3><p>Album-art lookups send just artist and title. Glyde's brain sends only what your PC can't answer, with your own key. Both can be switched off.</p></div>
         </div>
       </section>
     </div>
@@ -364,7 +406,7 @@
       <div class="section-head center reveal">
         <p class="kicker">Pricing</p>
         <h2>Free to start. <em>Yours forever.</em></h2>
-        <p class="lede">No subscriptions, not even for the AI: Siro's brain runs on your own free Gemini key.</p>
+        <p class="lede">No subscriptions, not even for the AI: Glyde's brain runs on your own free Gemini key.</p>
         <div class="currency" role="radiogroup" aria-label="Currency">
           <button role="radio" aria-checked="true" data-cur="usd">USD</button>
           <button role="radio" aria-checked="false" data-cur="inr">INR</button>
@@ -389,12 +431,12 @@
         <article class="plan pro reveal" style="--d:.08s">
           <span class="plan-badge">Lifetime</span>
           <h3>Pro</h3>
-          <p class="plan-for">Everything WinIsland can do. Pay once.</p>
+          <p class="plan-for">Everything Glyde can do. Pay once.</p>
           <p class="price"><b data-usd="$9.99" data-inr="₹399">$9.99</b><span>one time</span></p>
           <ul>
             <li>Everything in Free</li>
-            <li>Siro, with “Hey Siro”, in English and Hindi</li>
-            <li>Siro's brain: questions, emails, WhatsApp</li>
+            <li>Voice commands and “Hey&nbsp;Glyde”, in English and Hindi</li>
+            <li>Glyde's brain: questions, emails, WhatsApp</li>
             <li>Timers, alarms and reminders</li>
             <li>Clipboard history and file shelf</li>
             <li>Notifications on the island</li>
@@ -414,7 +456,7 @@
       </div>
       <div class="faq-list">
         <details class="reveal">
-          <summary>When can I get WinIsland?</summary>
+          <summary>When can I get Glyde?</summary>
           <div class="faq-a"><p>It's in the final stretch. Join the waitlist and you'll get one email the day it's out, with the early-bird price on Pro.</p></div>
         </details>
         <details class="reveal">
@@ -427,23 +469,23 @@
         </details>
         <details class="reveal">
           <summary>Which music apps work?</summary>
-          <div class="faq-a"><p>Any app that tells Windows what it's playing: Spotify, YouTube in Chrome or Edge, Amazon Music, Media Player and many more. When an app doesn't share artwork, WinIsland can look it up (or you can switch that off).</p></div>
+          <div class="faq-a"><p>Any app that tells Windows what it's playing: Spotify, YouTube in Chrome or Edge, Amazon Music, Media Player and many more. When an app doesn't share artwork, Glyde can look it up (or you can switch that off).</p></div>
         </details>
         <details class="reveal">
-          <summary>Is Siro always listening?</summary>
-          <div class="faq-a"><p>No. By default Siro only listens after you press the shortcut or tap the mic. “Hey Siro” is opt-in, and even then only the first two seconds after a pause are checked for the name, on your PC.</p></div>
+          <summary>Is Glyde always listening?</summary>
+          <div class="faq-a"><p>No. By default Glyde only listens after you press the shortcut or tap the mic. “Hey&nbsp;Glyde” is opt-in, and even then only the first two seconds after a pause are checked for the name, on your PC.</p></div>
         </details>
         <details class="reveal">
-          <summary>Does Siro's brain cost anything?</summary>
+          <summary>Does Glyde's brain cost anything?</summary>
           <div class="faq-a"><p>No. It uses Google Gemini with your own API key, free from Google AI Studio with no card needed. Only the requests your PC can't handle go to Google, and on Gemini's free tier Google may use them to improve its products. You can leave the brain off and still use every on-device command.</p></div>
         </details>
         <details class="reveal">
-          <summary>Which languages does Siro understand?</summary>
+          <summary>Which languages does Glyde understand?</summary>
           <div class="faq-a"><p>English and Hindi, and it works out which one you're speaking. With the brain on, Hinglish requests work too.</p></div>
         </details>
         <details class="reveal">
           <summary>Will it get in the way of games or films?</summary>
-          <div class="faq-a"><p>No. It hides itself whenever a fullscreen app or game is in front, clicks pass straight through everywhere except the pill, and clicking the pill never steals focus. Siro's speech model is only loaded while you use it and unloads after ten minutes.</p></div>
+          <div class="faq-a"><p>No. It hides itself whenever a fullscreen app or game is in front, clicks pass straight through everywhere except the pill, and clicking the pill never steals focus. Glyde's speech model is only loaded while you use it and unloads after ten minutes.</p></div>
         </details>
         <details class="reveal">
           <summary>I have more than one monitor.</summary>
@@ -451,7 +493,7 @@
         </details>
         <details class="reveal">
           <summary>Is this made by Apple or Microsoft?</summary>
-          <div class="faq-a"><p>Neither. WinIsland is an independent app, inspired by the island on phones and built natively for Windows.</p></div>
+          <div class="faq-a"><p>Neither. Glyde is an independent app, inspired by the island on phones and built natively for Windows.</p></div>
         </details>
       </div>
     </section>
@@ -463,20 +505,20 @@
           <span class="signer-mark" aria-hidden="true">S</span>
           <div>
             <p class="kicker">From the founder</p>
-            <h2 class="letter-title" id="founder-title">Why I'm building WinIsland</h2>
+            <h2 class="letter-title" id="founder-title">Why I'm building Glyde</h2>
           </div>
         </div>
         <p>Our phones tell us more at a glance than the computers we spend all day on. Windows deserves better: a calm, well-made place for what's happening right now, and an assistant that respects your privacy.</p>
-        <p>WinIsland is built on three principles: feel native and fast, stay out of your way, and treat your data with care. Thank you for being here early.</p>
+        <p>Glyde is built on three principles: feel native and fast, stay out of your way, and treat your data with care. Thank you for being here early.</p>
         <footer class="letter-sign">
           <span class="sig" aria-hidden="true">Suman</span>
-          <span class="signer-name"><b>Suman</b><small>Founder, WinIsland</small></span>
+          <span class="signer-name"><b>Suman</b><small>Founder, Glyde</small></span>
         </footer>
       </article>
     </section>
 
     <!-- ============================== GET WINISLAND ============================== -->
-    <section class="final" id="get" data-section="Get WinIsland">
+    <section class="final" id="get" data-section="Get Glyde">
       <div class="final-sky" aria-hidden="true">
         <div class="rays soft"></div>
         <div class="halo-ring r1"></div><div class="halo-ring r2"></div><div class="halo-ring r3"></div><div class="halo-ring r4"></div>
@@ -510,25 +552,32 @@
             <button class="btn btn-glow" type="submit"><span>Join the waitlist</span></button>
             <p class="form-msg" role="status" aria-live="polite"></p>
           </form>
-          <p class="micro">We'll only email you about WinIsland.</p>
+          <p class="micro">We'll only email you about Glyde.</p>
         </div>
       </div>
     </section>
   </main>
 
+  <aside class="dock" aria-label="Get Glyde" hidden>
+    <span class="dock-mark" aria-hidden="true"></span>
+    <span class="dock-text"><b>Glyde</b><small data-dock-note>Coming soon for Windows</small></span>
+    <a class="btn btn-glow btn-sm" href="#get" data-dock-cta><span>Join the waitlist</span></a>
+    <button class="dock-x" type="button" aria-label="Hide this">&times;</button>
+  </aside>
+
   <footer class="footer">
     <div class="footer-inner">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">WinIsland</span></a>
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">Glyde</span></a>
       <nav aria-label="Footer">
         <a href="#features">Features</a>
-        <a href="#siro">Siro</a>
+        <a href="#voice">Voice</a>
         <a href="#privacy">Privacy</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
         <a href="#get" data-download>Download</a>
         <a href="#get" data-store>Microsoft Store</a>
       </nav>
-      <p class="fine">© <span data-year>2026</span> WinIsland. An independent app, not affiliated with Apple Inc., Microsoft Corporation or Google LLC. Song titles, artists and people on this page are made up.</p>
+      <p class="fine">© <span data-year>2026</span> Glyde. An independent app, not affiliated with Apple Inc., Microsoft Corporation or Google LLC. Glyde was formerly called WinIsland. Song titles, artists and people on this page are made up.</p>
     </div>
   </footer>
 </body>
